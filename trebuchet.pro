@@ -23,8 +23,12 @@ LIBS += -lglu32 \
     -lopencv_calib3d2413
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    myglwidget.cpp \
+    mywindow.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    myglwidget.h \
+    mywindow.h
 
 FORMS    += mainwindow.ui
