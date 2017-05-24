@@ -24,6 +24,6 @@ void myGlWidget::keyPressEvent(QKeyEvent *keyEvent){
 }
 
 void myGlWidget::timeOutSlot(){
-
+    updateGL();
 }
 

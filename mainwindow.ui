@@ -6,70 +6,61 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>910</width>
-    <height>675</height>
+    <width>477</width>
+    <height>556</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="camera">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>230</y>
-      <width>351</width>
-      <height>301</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
-   <widget class="myWindow" name="widget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>330</x>
-      <y>20</y>
-      <width>200</width>
-      <height>200</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="error">
-    <property name="geometry">
-     <rect>
-      <x>146</x>
-      <y>20</y>
-      <width>561</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="save">
-    <property name="geometry">
-     <rect>
-      <x>344</x>
-      <y>590</y>
-      <width>221</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Mémoriser image</string>
-    </property>
-   </widget>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="GLWindow" name="widget" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>200</width>
+        <height>200</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="save">
+          <property name="text">
+           <string>Mémoriser image</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="camera">
+        <property name="minimumSize">
+         <size>
+          <width>200</width>
+          <height>200</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>910</width>
+     <width>477</width>
      <height>21</height>
     </rect>
    </property>
@@ -87,9 +78,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>myWindow</class>
+   <class>GLWindow</class>
    <extends>QWidget</extends>
-   <header location="global">mywindow.h</header>
+   <header location="global">glwindow.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

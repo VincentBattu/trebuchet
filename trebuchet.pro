@@ -24,11 +24,11 @@ LIBS += -lglu32 \
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    myglwidget.cpp \
-    mywindow.cpp
+    glwidget.cpp \
+    glwindow.cpp
 
 HEADERS  += mainwindow.h \
-    myglwidget.h \
-    mywindow.h
+    glwidget.h \
+    glwindow.h
 
 FORMS    += mainwindow.ui

@@ -12,6 +12,13 @@ public:
     void resizeGL(int w, int h);
     void paintGL();
     void draw();
+
+private:
+    float f_x;
+
+    int xRot;
+    int yRot;
+    int zRot;
 };
 
 #endif // MYWINDOW_H
