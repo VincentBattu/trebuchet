@@ -50,6 +50,9 @@ private slots:
     void displayCam();
     void getCoordinate();
     void on_save_clicked();
+
+signals:
+    void yRotationchanged(int angle);
 };
 
 #endif // MAINWINDOW_H

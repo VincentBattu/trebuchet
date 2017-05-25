@@ -19,6 +19,10 @@ void GLWindow::initializeGL(){
 
 }
 
+void GLWindow::setYRotation(int angle){
+    yRot = angle;
+}
+
 void GLWindow::resizeGL(int width, int height){
     int side = qMin(width, height);
 
@@ -37,7 +41,6 @@ void GLWindow::resizeGL(int width, int height){
 }
 
 void GLWindow::paintGL(){
-    yRot +=0.5;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
         glTranslatef(-1.5f, 0.0f, -6.0f);

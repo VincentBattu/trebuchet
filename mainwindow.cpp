@@ -65,6 +65,7 @@ void MainWindow::on_save_clicked()
         ui->save->setVisible(false);
         processTimer = new QTimer(this);
         connect(processTimer, SIGNAL(timeout()), this, SLOT(getCoordinate()));
+        connect(this, SIGNAL(yRotationchanged(int)), ui->widget, SLOT(setYRotation(int)));
         processTimer->start(20);
 
     }
@@ -83,11 +84,14 @@ void MainWindow::getCoordinate(){
         normalize(resultImage, normResultImage, 1, 0, NORM_MINMAX);
         cvtColor(normResultImage,normResultImage, CV_GRAY2RGB);
         rectangle(normResultImage, Rect(maxLoc.x, maxLoc.y,3,3),Scalar(0,0,1),2,8,0);
-        qDebug()<<maxLoc.x<<endl;
         rectangle(matOriginal, resultRect, Scalar(0,255,0),2,8,0);
         cvtColor(matOriginal, matOriginal, CV_BGR2RGB);
         QImage image = QImage((uchar*)matOriginal.data, matOriginal.cols, matOriginal.rows, matOriginal.step, QImage::Format_RGB888);
         ui->camera->setPixmap(QPixmap::fromImage(image));
+        //TODO A refaire
+        int yAngle = maxLoc.x * 180 / matOriginal.cols;
+        emit yRotationchanged(yAngle);
+
 
     }
 }
