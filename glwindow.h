@@ -9,11 +9,13 @@ class GLWindow : public GLWidget
 
 private:
     int yRot;
+    GLuint GLdisplayList[1];
 public:
     explicit GLWindow(QWidget *parent = 0);
     void initializeGL();
     void resizeGL(int width, int height);
     void paintGL();
+    void displayCDVDisplayList();
 
 public slots:
     void setYRotation(int angle);

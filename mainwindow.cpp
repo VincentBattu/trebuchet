@@ -89,7 +89,7 @@ void MainWindow::getCoordinate(){
         QImage image = QImage((uchar*)matOriginal.data, matOriginal.cols, matOriginal.rows, matOriginal.step, QImage::Format_RGB888);
         ui->camera->setPixmap(QPixmap::fromImage(image));
         //TODO A refaire
-        int yAngle = maxLoc.x * 180 / matOriginal.cols;
+        int yAngle = maxLoc.x * 360 / matOriginal.cols - 180;
         emit yRotationchanged(yAngle);
 
 
