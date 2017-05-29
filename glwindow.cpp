@@ -1,6 +1,7 @@
 #include "glwindow.h"
 #include <QDebug>
 #include <GL/glu.h>
+#include <QOpenGLTexture>
 
 GLWindow::GLWindow(QWidget *parent) : GLWidget(60, parent, "Test")
 {
@@ -9,6 +10,7 @@ GLWindow::GLWindow(QWidget *parent) : GLWidget(60, parent, "Test")
 
 void GLWindow::initializeGL(){
     glShadeModel(GL_SMOOTH);
+    glEnable(GL_TEXTURE_2D);
     qglClearColor(Qt::black);
     glClearDepth(1.0f);
 
@@ -42,119 +44,121 @@ void GLWindow::resizeGL(int width, int height){
 
 GLuint loadtgadisplayCDV ( const char* filename )
 {
-FILE* fp;
-char magic[12];
-unsigned char header[6];
-int imageSize;
-GLenum type;
-char temp;
-int i;
-int bpp,width,height;
-GLuint textureId;
-int globalWidth = 1;
-int globalHeight = 1;
-char* imageData;
-char* imageTmp;
-if(!(fp = fopen(filename, "rb"))) return 0;
-if(!fread(&magic, 12, 1, fp)) return 0;
-if(!fread(&header, 6, 1, fp)) return 0;
-bpp = header[4];
-width  = header[1] * 256 + header[0];
-height = header[3] * 256 + header[2];
-if(width <= 0 || height <= 0) return 0;
-if(bpp != 24 && bpp != 32) return 0;
-imageSize = width * height * (bpp / 8);
-imageData = (char *)malloc(sizeof(char) * imageSize);
-if(imageData == NULL) return 0;
-if(!fread(imageData, imageSize, 1, fp)) { free(imageData); return 0; }
-for(i = 0; i < imageSize; i += bpp / 8) {
-temp = imageData[i];
-imageData[i] = imageData[i + 2];
-imageData[i + 2] = temp; }
-if(bpp == 32) for(i=0;i<imageSize;i+=4) imageData[i+3]=255-imageData[i+3];
-fclose(fp);
-while (width>globalWidth) globalWidth*=2;
-while (height>globalHeight) globalHeight*=2;
-glEnable( GL_TEXTURE_2D );
-glGenTextures(1, &textureId);
-glBindTexture(GL_TEXTURE_2D, textureId);
-glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
-glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
-glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-glPixelStorei(GL_UNPACK_ROW_LENGTH,globalWidth);
-glPixelStorei(GL_UNPACK_ALIGNMENT,1);
-if(bpp == 24) type=GL_RGB; else type=GL_RGBA;
-imageTmp = (char *)malloc(sizeof(char)*globalWidth*globalHeight*4);
-if (imageTmp==NULL) return 0;
-glTexImage2D(GL_TEXTURE_2D,0,type,globalWidth,globalHeight,0,
-type,GL_UNSIGNED_BYTE,imageTmp);
-free (imageTmp );
-glPixelStorei(GL_UNPACK_ROW_LENGTH,width);
-glTexSubImage2D(GL_TEXTURE_2D,0, 0,0, width, height,
-type ,GL_UNSIGNED_BYTE, imageData );
-free(imageData);
-return textureId;
+    FILE* fp;
+    char magic[12];
+    unsigned char header[6];
+    int imageSize;
+    GLenum type;
+    char temp;
+    int i;
+    int bpp,width,height;
+    GLuint textureId;
+    int globalWidth = 1;
+    int globalHeight = 1;
+    char* imageData;
+    char* imageTmp;
+    if(!(fp = fopen(filename, "rb"))) return 0;
+    if(!fread(&magic, 12, 1, fp)) return 0;
+    if(!fread(&header, 6, 1, fp)) return 0;
+    bpp = header[4];
+    width  = header[1] * 256 + header[0];
+    height = header[3] * 256 + header[2];
+    if(width <= 0 || height <= 0) return 0;
+    if(bpp != 24 && bpp != 32) return 0;
+    imageSize = width * height * (bpp / 8);
+    imageData = (char *)malloc(sizeof(char) * imageSize);
+    if(imageData == NULL) return 0;
+    if(!fread(imageData, imageSize, 1, fp)) { free(imageData); return 0; }
+    for(i = 0; i < imageSize; i += bpp / 8) {
+    temp = imageData[i];
+    imageData[i] = imageData[i + 2];
+    imageData[i + 2] = temp; }
+    if(bpp == 32) for(i=0;i<imageSize;i+=4) imageData[i+3]=255-imageData[i+3];
+    fclose(fp);
+    while (width>globalWidth) globalWidth*=2;
+    while (height>globalHeight) globalHeight*=2;
+    glEnable( GL_TEXTURE_2D );
+    glGenTextures(1, &textureId);
+    glBindTexture(GL_TEXTURE_2D, textureId);
+    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glPixelStorei(GL_UNPACK_ROW_LENGTH,globalWidth);
+    glPixelStorei(GL_UNPACK_ALIGNMENT,1);
+    if(bpp == 24) type=GL_RGB; else type=GL_RGBA;
+    imageTmp = (char *)malloc(sizeof(char)*globalWidth*globalHeight*4);
+    if (imageTmp==NULL) return 0;
+    glTexImage2D(GL_TEXTURE_2D,0,type,globalWidth,globalHeight,0,
+    type,GL_UNSIGNED_BYTE,imageTmp);
+    free (imageTmp );
+    glPixelStorei(GL_UNPACK_ROW_LENGTH,width);
+    glTexSubImage2D(GL_TEXTURE_2D,0, 0,0, width, height,
+    type ,GL_UNSIGNED_BYTE, imageData );
+    free(imageData);
+    return textureId;
 }
+
+void GLWindow::drawTerrain(){
+    QOpenGLTexture *texture = new QOpenGLTexture(QImage("../trebuchet/grass.jpg").mirrored());
+    texture->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
+    texture->setMagnificationFilter(QOpenGLTexture::Linear);
+    texture->bind();
+   glColor3ub(255,255,255);
+   int step=10;
+    for (int i =-100; i <=100-step; i+=step){
+        for (int j =-100; j <=100-step; j+=step){
+            glBegin(GL_QUADS);
+                glTexCoord2d(0,0);
+                glVertex3d(i,0,j);
+                glTexCoord2d(0,1);
+                glVertex3d(i+step,0,j);
+                glTexCoord2d(1,1);
+                glVertex3d(i+step,0,j+step);
+                glTexCoord2d(1,0);
+                glVertex3d(i,0,j+step);
+            glEnd();
+        }
+    }
+
+}
+
+void GLWindow::drawFence(){
+    int width = 8;
+    int height = 2;
+    QOpenGLTexture *texture = new QOpenGLTexture(QImage("../trebuchet/fence.png").mirrored());
+    texture->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
+    texture->setMagnificationFilter(QOpenGLTexture::Linear);
+    texture->bind();
+    glPushMatrix();
+    glMatrixMode( GL_MODELVIEW );
+   // glLoadIdentity( );
+        glBegin(GL_QUADS);
+           glTexCoord2d(0,0);
+            glVertex3d(-width/2,0,0);
+            glTexCoord2d(0,5);
+            glVertex3d(width/2,0,0);
+            glTexCoord2d(1,5);
+            glVertex3d(width/2,height,0);
+            glTexCoord2d(1,0);
+            glVertex3d(-width/2,height,0);
+        glEnd();
+        gluCylinder(gluNewQuadric(),1.0,1,3,30,30);
+    glPopMatrix();
+}
+
 
 void GLWindow::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glLoadIdentity();
-        glTranslatef(-1.0f, -3.0f, -8.0f);
-        glRotatef(-90,1,0,0);
-        glRotatef(yRot,0,0,1);
-        glScalef(.5,.5,.5);
-        /*glBegin(GL_QUADS);
+            glLoadIdentity();
+            gluLookAt(0,3,-5,0,0,0,0,1,0);
 
-            glColor3ub(255,0,0); //face rouge
-            glVertex3d(1,1,1);
-            glVertex3d(1,1,-1);
-            glVertex3d(-1,1,-1);
-            glVertex3d(-1,1,1);
+            drawFence();
 
-            glColor3ub(0,255,0); //face verte
-            glVertex3d(1,-1,1);
-            glVertex3d(1,-1,-1);
-            glVertex3d(1,1,-1);
-            glVertex3d(1,1,1);
+           // drawTerrain();
+            glRotatef(yRot,0,1,0);
 
-            glColor3ub(0,0,255); //face bleue
-            glVertex3d(-1,-1,1);
-            glVertex3d(-1,-1,-1);
-            glVertex3d(1,-1,-1);
-            glVertex3d(1,-1,1);
-
-            glColor3ub(255,255,0); //face jaune
-            glVertex3d(-1,1,1);
-            glVertex3d(-1,1,-1);
-            glVertex3d(-1,-1,-1);
-            glVertex3d(-1,-1,1);
-
-            glColor3ub(0,255,255); //face cyan
-            glVertex3d(1,1,-1);
-            glVertex3d(1,-1,-1);
-            glVertex3d(-1,-1,-1);
-            glVertex3d(-1,1,-1);
-
-            glColor3ub(255,0,255); //face magenta
-            glVertex3d(1,-1,1);
-            glVertex3d(1,1,1);
-            glVertex3d(-1,1,1);
-            glVertex3d(-1,-1,1);
-
-            glEnd();*/
-        this->displayCDVDisplayList();
-        glEnable(GL_DEPTH_TEST);
-        glDepthFunc(GL_LEQUAL);
-        glDisable(GL_CULL_FACE);
-        glEnable ( GL_NORMALIZE );
-        glDepthMask ( GL_TRUE );
-        glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
-        glPointSize ( 1.0f );
-        glLineWidth ( 1.0f );
-        glEnable(GL_COLOR_MATERIAL);
-        glEnable( GL_CULL_FACE );
-        //glColor3f(0.8,0.8,0.8);
+       /* this->displayCDVDisplayList();
 
         glPushMatrix ();
             glTranslatef(0,1.5,0);
@@ -172,6 +176,7 @@ void GLWindow::paintGL(){
         glEnable( GL_TEXTURE_2D );
         glDisable( GL_CULL_FACE );
         /* BIND TEXTURE */
+        /*
         glBindTexture(GL_TEXTURE_2D, loadtgadisplayCDV( "./bois_trebuchet3.png"));
         glBegin(GL_QUAD_STRIP);
             glTexCoord2f (0,0);
@@ -739,7 +744,7 @@ void GLWindow::paintGL(){
                     glVertex3f(-0.5,-0.5,0.5);
                 glEnd ();
             glPopMatrix ();
-        glPopMatrix ();
+        glPopMatrix (); */
 }
 
 void GLWindow::displayCDVDisplayList()

@@ -15,6 +15,9 @@ public:
     void initializeGL();
     void resizeGL(int width, int height);
     void paintGL();
+    void drawTerrain();
+    void drawTrebuchet(int rotX, int rotY);
+    void drawFence();
     void displayCDVDisplayList();
 
 public slots:
