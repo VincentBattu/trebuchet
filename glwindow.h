@@ -2,7 +2,9 @@
 #define GLWINDOW_H
 
 #include "glwidget.h"
-#include <QOpenGLTexture>
+#include "terraindrawer.h"
+#include "trebuchetdrawer.h"
+#include "targetdrawer.h"
 
 class GLWindow : public GLWidget
 {
@@ -10,30 +12,16 @@ class GLWindow : public GLWidget
 
 private:
     int yRot;
-    int xRot;
-    GLuint GLdisplayList[1];
-    QOpenGLTexture *textureWood;
-    QOpenGLTexture *textureFence;
-    QOpenGLTexture *textureGrass;
+
+    TerrainDrawer *terrain;
+    TrebuchetDrawer *trebuchet;
+    TargetDrawer *target;
 public:
 
     explicit GLWindow(QWidget *parent = 0);
     void initializeGL();
     void resizeGL(int width, int height);
     void paintGL();
-
-    void drawTerrain();
-    void drawFence();
-
-    void drawTrebuchet(int rotX, int rotY);    
-    void drawPlankClose();
-    void drawPlankOpen();
-    void drawCylinder();
-    void drawArmature();
-
-    void loadAndBlindWood();
-    void loadAndBlindFence();
-    void loadAndBlindGrass();
 
 public slots:
     void setYRotation(int angle);

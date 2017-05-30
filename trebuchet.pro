@@ -12,7 +12,9 @@ TARGET = trebuchet
 CONFIG   -= app_bundle
 TEMPLATE = app
 
+
 INCLUDEPATH +=$$(OPENCV_DIR)\..\..\include
+
 LIBS += -lglu32 \
      -lopengl32 \
     -L$$(OPENCV_DIR)\lib \
@@ -25,10 +27,19 @@ LIBS += -lglu32 \
 SOURCES += main.cpp\
         mainwindow.cpp \
     glwidget.cpp \
-    glwindow.cpp
+    glwindow.cpp \
+    terraindrawer.cpp \
+    trebuchetdrawer.cpp \
+    targetdrawer.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
-    glwindow.h
+    glwindow.h \
+    terraindrawer.h \
+    trebuchetdrawer.h \
+    targetdrawer.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    images.qrc
