@@ -8,6 +8,7 @@ GLWindow::GLWindow(QWidget *parent) : GLWidget(60, parent, "Test")
     yRot = 0;
     terrain = new TerrainDrawer();
     trebuchet = new TrebuchetDrawer();
+    target = new TargetDrawer();
 }
 
 void GLWindow::initializeGL(){
@@ -36,7 +37,7 @@ void GLWindow::resizeGL(int width, int height){
     // Définition de la caméra adapté à cette fenêtre
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(70.0f, (GLfloat)width/(GLfloat)height, 0.1f, 100.0f);
+    gluPerspective(70.0f, (GLfloat)width/(GLfloat)height, 0.1f, 150.0f);
 
     // On réinitialise la matrice d'affichage
     glMatrixMode(GL_MODELVIEW);
@@ -48,7 +49,8 @@ void GLWindow::paintGL(){
     glLoadIdentity();
     gluLookAt(0,10,-10,0,4,0,0,1,0);
 
-    //glRotatef(yRot,0,1,0);
-    terrain->drawTerrain();
+    glRotatef(yRot,0,1,0);
+    //terrain->drawTerrain();
     //trebuchet->drawTrebuchet(0,yRot);
+    target->drawTarget();
 }

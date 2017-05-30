@@ -4,6 +4,7 @@
 #include "glwidget.h"
 #include "terraindrawer.h"
 #include "trebuchetdrawer.h"
+#include "targetdrawer.h"
 
 class GLWindow : public GLWidget
 {
@@ -13,6 +14,7 @@ private:
     int yRot;
     TerrainDrawer *terrain;
     TrebuchetDrawer *trebuchet;
+    TargetDrawer *target;
 public:
 
     explicit GLWindow(QWidget *parent = 0);

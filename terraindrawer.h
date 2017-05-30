@@ -10,6 +10,7 @@ private:
     QOpenGLTexture *textureWood;
     QOpenGLTexture *textureFence;
     QOpenGLTexture *textureGrass;
+    QOpenGLTexture *textureLogo;
 public:
 
     explicit TerrainDrawer();
@@ -21,6 +22,7 @@ public:
     void loadAndBlindWood();
     void loadAndBlindFence();
     void loadAndBlindGrass();
+    void loadAndBlindLogo();
 };
 
 #endif // TERRAIN_H

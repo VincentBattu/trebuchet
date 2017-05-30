@@ -29,13 +29,15 @@ SOURCES += main.cpp\
     glwidget.cpp \
     glwindow.cpp \
     terraindrawer.cpp \
-    trebuchetdrawer.cpp
+    trebuchetdrawer.cpp \
+    targetdrawer.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
     glwindow.h \
     terraindrawer.h \
-    trebuchetdrawer.h
+    trebuchetdrawer.h \
+    targetdrawer.h
 
 FORMS    += mainwindow.ui
 
