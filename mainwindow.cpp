@@ -23,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent) :  QMainWindow(parent), ui(new Ui::MainW
     cap.set(CV_CAP_PROP_FRAME_WIDTH, frameWidth);
     cap.set(CV_CAP_PROP_FRAME_HEIGHT, frameHeight);
 
+    minLoc = Point(-1,-1);
+    maxLoc = Point(-1,-1);
 
     // Définition du rectangle template
     templateRect = new Rect((frameWidth-templateWidth)/2, 2*(frameHeight-templateHeight)/3, templateWidth,templateHeight);
@@ -55,7 +57,7 @@ void MainWindow::displayCam(){
 }
 
 /**
- * Quand on clique sur le bouton pour sauvarger l'image de la main, le simple affichage s'arrête.
+ * Quand on clique sur le bouton pour sauvegarder l'image de la main, le simple affichage s'arrête.
  * @brief MainWindow::on_save_clicked
  */
 void MainWindow::on_save_clicked()
@@ -65,7 +67,8 @@ void MainWindow::on_save_clicked()
         ui->save->setVisible(false);
         processTimer = new QTimer(this);
         connect(processTimer, SIGNAL(timeout()), this, SLOT(getCoordinate()));
-        connect(this, SIGNAL(yRotationchanged(int)), ui->widget, SLOT(setYRotation(int)));
+        connect(this, SIGNAL(yRotationChanged(int)), ui->widget, SLOT(setYRotation(int)));
+        connect(this, SIGNAL(xRotationChanged(int)), ui->widget, SLOT(setXRotation(int)));
         processTimer->start(20);
 
     }
@@ -74,9 +77,21 @@ void MainWindow::on_save_clicked()
 void MainWindow::getCoordinate(){
     if(cap.read(matOriginal)){
         flip(matOriginal, matOriginal,1);
-        matchTemplate(matOriginal, templateImage, resultImage, TM_CCORR_NORMED);
-        Point minLoc;
-        Point maxLoc;
+         Mat templatedImg;
+        if (maxLoc.x = -1){
+            templatedImg = matOriginal;
+        } else {
+            int heightRect = 30;
+            int xRect = maxLoc.x-heightRect;
+            int yRect = maxLoc.y -heightRect;
+            int width = templateWidth +heightRect *2;
+            int height = templateHeight +heightRect*2;
+            Rect roi = Rect(xRect, yRect, width, height);
+            templatedImg = Mat(matOriginal, roi);
+        }
+
+        matchTemplate(templatedImg, templateImage, resultImage, TM_CCORR_NORMED);
+
         minMaxLoc(resultImage, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
         resultRect = Rect(maxLoc.x, maxLoc.y, templateWidth, templateHeight);
 
@@ -87,10 +102,13 @@ void MainWindow::getCoordinate(){
         rectangle(matOriginal, resultRect, Scalar(0,255,0),2,8,0);
         cvtColor(matOriginal, matOriginal, CV_BGR2RGB);
         QImage image = QImage((uchar*)matOriginal.data, matOriginal.cols, matOriginal.rows, matOriginal.step, QImage::Format_RGB888);
+
         ui->camera->setPixmap(QPixmap::fromImage(image));
         //TODO A refaire
         int yAngle = maxLoc.x * 360 / matOriginal.cols - 180;
-        emit yRotationchanged(yAngle);
+        emit yRotationChanged(yAngle);
+        int xAngle = maxLoc.y *360 / matOriginal.rows;
+        emit xRotationChanged(xAngle);
 
 
     }

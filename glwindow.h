@@ -10,6 +10,7 @@ class GLWindow : public GLWidget
 
 private:
     int yRot;
+    int xRot;
     GLuint GLdisplayList[1];
     QOpenGLTexture *textureWood;
     QOpenGLTexture *textureFence;
@@ -36,6 +37,7 @@ public:
 
 public slots:
     void setYRotation(int angle);
+    void setXRotation(int angle);
 };
 
 #endif // GLWINDOW_H

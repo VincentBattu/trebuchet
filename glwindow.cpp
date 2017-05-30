@@ -28,6 +28,10 @@ void GLWindow::setYRotation(int angle){
     yRot = angle;
 }
 
+void GLWindow::setXRotation(int angle){
+     xRot = angle;
+}
+
 void GLWindow::resizeGL(int width, int height){
     int side = qMin(width, height);
 
@@ -66,7 +70,7 @@ void GLWindow::loadAndBlindGrass(){
 
 
 void GLWindow::drawTerrain(){
-    loadAndBlindGrass();
+    //loadAndBlindGrass();
     //glBindTexture(GL_TEXTURE_2D, textureGrass);
     //textureGrass->bind();
    glColor3ub(255,255,255);
@@ -113,7 +117,7 @@ void GLWindow::drawTerrain(){
 void GLWindow::drawFence(){
     int width = 8;
     int height = 4;
-    loadAndBlindFence();
+   //loadAndBlindFence();
     //glBindTexture(GL_TEXTURE_2D, textureFence);
     //textureFence->bind();
     glPushMatrix();
@@ -165,7 +169,7 @@ void GLWindow::drawPlankClose(){
 
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_CULL_FACE );
-    loadAndBlindWood();
+    //loadAndBlindWood();
     //glBindTexture(GL_TEXTURE_2D, textureWood);
     //textureWood->bind();
     glPushMatrix();
@@ -213,7 +217,7 @@ void GLWindow::drawCylinder(){
     glDisable( GL_CULL_FACE );
     //loadAndBlindWood();
     //glBindTexture(GL_TEXTURE_2D, textureWood);
-    textureWood->bind();
+    //textureWood->bind();
     glPushMatrix();
         glMatrixMode( GL_MODELVIEW );
         glEnable(GL_TEXTURE_GEN_S);
@@ -473,7 +477,7 @@ void GLWindow::drawCylinder(){
 void GLWindow::drawPlankOpen(){
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_CULL_FACE );
-    loadAndBlindWood();
+   // loadAndBlindWood();
     //glBindTexture(GL_TEXTURE_2D, textureWood);
     //textureWood->bind();
     glPushMatrix();
@@ -632,7 +636,7 @@ void GLWindow::paintGL(){
     //glRotatef(yRot,0,1,0);
     //drawFence();
     //drawTerrain();
-    drawTrebuchet(0,yRot);
+    drawTrebuchet(xRot,yRot);
     //drawPlankClose();
     //drawCylinder();
     //drawArmature();

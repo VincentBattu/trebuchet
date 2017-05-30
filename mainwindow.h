@@ -43,6 +43,9 @@ private:
     double minVal;
     double maxVal;
 
+    cv::Point minLoc;
+    cv::Point maxLoc;
+
     QTimer* displayCamTimer;
 
 
@@ -52,7 +55,8 @@ private slots:
     void on_save_clicked();
 
 signals:
-    void yRotationchanged(int angle);
+    void yRotationChanged(int angle);
+    void xRotationChanged(int angle);
 };
 
 #endif // MAINWINDOW_H
