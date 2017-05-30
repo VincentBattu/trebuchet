@@ -6,6 +6,9 @@
 GLWindow::GLWindow(QWidget *parent) : GLWidget(60, parent, "Test")
 {
     yRot = 0;
+    /*loadAndBlindGrass();
+    loadAndBlindWood();
+    loadAndBlindFence();*/
 }
 
 void GLWindow::initializeGL(){
@@ -42,20 +45,34 @@ void GLWindow::resizeGL(int width, int height){
 
 }
 
-void GLWindow::loadAndBlind(char* filename){
-    texture = new QOpenGLTexture(QImage(filename).mirrored());
-    texture->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
-    texture->setMagnificationFilter(QOpenGLTexture::Linear);
-    texture->bind();
+void GLWindow::loadAndBlindWood(){
+    textureWood = new QOpenGLTexture(QImage("../trebuchet/bois_trebuchet3.png").mirrored());
+    textureWood->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
+    textureWood->setMagnificationFilter(QOpenGLTexture::Linear);
+    textureWood->bind();
+}
+void GLWindow::loadAndBlindFence(){
+    textureFence = new QOpenGLTexture(QImage("../trebuchet/fence.png").mirrored());
+    textureFence->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
+    textureFence->setMagnificationFilter(QOpenGLTexture::Linear);
+    textureFence->bind();
+}
+void GLWindow::loadAndBlindGrass(){
+    textureGrass = new QOpenGLTexture(QImage("../trebuchet/grass.jpg").mirrored());
+    textureGrass->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
+    textureGrass->setMagnificationFilter(QOpenGLTexture::Linear);
+    textureGrass->bind();
 }
 
 
 void GLWindow::drawTerrain(){
-    loadAndBlind("../trebuchet/grass.jpg");
+    loadAndBlindGrass();
+    //glBindTexture(GL_TEXTURE_2D, textureGrass);
+    //textureGrass->bind();
    glColor3ub(255,255,255);
    int step=10;
-    for (int i =-100; i <=100-step; i+=step){
-        for (int j =-100; j <=100-step; j+=step){
+    for (int i =-50; i <=50-step; i+=step){
+        for (int j =-50; j <=50-step; j+=step){
             glBegin(GL_QUADS);
                 glTexCoord2d(0,0);
                 glVertex3d(i,0,j);
@@ -68,16 +85,42 @@ void GLWindow::drawTerrain(){
             glEnd();
         }
     }
+    glPushMatrix();
+        glTranslatef(-50,0,0);
+        glRotatef(90,0,1,0);
+        glScalef(12.5,1,1);
+        drawFence();
+    glPopMatrix();
+    glPushMatrix();
+        glTranslatef(50,0,0);
+        glRotatef(90,0,1,0);
+        glScalef(12.5,1,1);
+        drawFence();
+    glPopMatrix();
+    glPushMatrix();
+        glTranslatef(0,0,50);
+        glScalef(12.5,1,1);
+        drawFence();
+    glPopMatrix();
+    glPushMatrix();
+        glTranslatef(0,0,-50);
+        glScalef(12.5,1,1);
+        drawFence();
+    glPopMatrix();
 
 }
 
 void GLWindow::drawFence(){
     int width = 8;
-    int height = 2;
-    loadAndBlind("../trebuchet/fence.png");
+    int height = 4;
+    loadAndBlindFence();
+    //glBindTexture(GL_TEXTURE_2D, textureFence);
+    //textureFence->bind();
     glPushMatrix();
+    glEnable( GL_TEXTURE_2D );
+    glDisable( GL_CULL_FACE );
     glMatrixMode( GL_MODELVIEW );
-   // glLoadIdentity( );
+    //glLoadIdentity( );
         glBegin(GL_QUADS);
            glTexCoord2d(0,0);
             glVertex3d(-width/2,0,0);
@@ -88,7 +131,33 @@ void GLWindow::drawFence(){
             glTexCoord2d(1,0);
             glVertex3d(-width/2,height,0);
         glEnd();
-        gluCylinder(gluNewQuadric(),1.0,1,3,30,30);
+        glDisable( GL_TEXTURE_2D );
+        glEnable( GL_CULL_FACE );
+    glPopMatrix();
+    glPushMatrix();
+    glMatrixMode( GL_MODELVIEW );
+        glBegin(GL_LINES);
+            glColor3f(.5,.5,.5);
+            glVertex3d(width/2,height,0);
+            glVertex3d(-width/2,height,0);
+            glColor3f(1,1,1);
+        glEnd();
+    glPopMatrix();
+    glPushMatrix();
+    glMatrixMode( GL_MODELVIEW );
+    glColor3f(.5,.5,.5);
+        glTranslatef(-width/2,0,0);
+        glRotatef(-90,1,0,0);
+        glScalef(.5,.5,height);
+        drawCylinder();
+    glPopMatrix();
+    glPushMatrix();
+    glMatrixMode( GL_MODELVIEW );
+        glTranslatef(width/2,0,0);
+        glRotatef(-90,1,0,0);
+        glScalef(.5,.5,height);
+        drawCylinder();
+        glColor3f(1,1,1);
     glPopMatrix();
 }
 
@@ -96,7 +165,9 @@ void GLWindow::drawPlankClose(){
 
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_CULL_FACE );
-    loadAndBlind("../trebuchet/bois_trebuchet3.png");
+    loadAndBlindWood();
+    //glBindTexture(GL_TEXTURE_2D, textureWood);
+    //textureWood->bind();
     glPushMatrix();
         glMatrixMode( GL_MODELVIEW );
         glEnable(GL_TEXTURE_GEN_S);
@@ -140,7 +211,9 @@ void GLWindow::drawCylinder(){
 
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_CULL_FACE );
-    loadAndBlind("../trebuchet/bois_trebuchet3.png");
+    //loadAndBlindWood();
+    //glBindTexture(GL_TEXTURE_2D, textureWood);
+    textureWood->bind();
     glPushMatrix();
         glMatrixMode( GL_MODELVIEW );
         glEnable(GL_TEXTURE_GEN_S);
@@ -400,7 +473,9 @@ void GLWindow::drawCylinder(){
 void GLWindow::drawPlankOpen(){
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_CULL_FACE );
-    loadAndBlind("../trebuchet/bois_trebuchet3.png");
+    loadAndBlindWood();
+    //glBindTexture(GL_TEXTURE_2D, textureWood);
+    //textureWood->bind();
     glPushMatrix();
         glMatrixMode( GL_MODELVIEW );
         glEnable(GL_TEXTURE_GEN_S);
@@ -500,13 +575,11 @@ void GLWindow::drawArmature(){
 }
 
 void GLWindow::drawTrebuchet(int rotX, int rotY){
-    int A=0;
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_CULL_FACE );
     glPushMatrix();
         glMatrixMode( GL_MODELVIEW );
         glRotatef(rotY,0,1,0);
-        glRotatef(rotX,0,1,0);
         glPushMatrix ();
             glRotatef(90,0,1,0);
             glScalef(1,1,10/.6);
@@ -526,7 +599,7 @@ void GLWindow::drawTrebuchet(int rotX, int rotY){
 
         glPushMatrix ();
             glTranslatef(-1.2,9,0);
-            glRotatef(A,1,0,0);
+            glRotatef(rotX,1,0,0);
             glRotatef(90,0,1,0);
             glScalef(1,1,2.4);
             drawCylinder();
@@ -554,10 +627,11 @@ void GLWindow::drawTrebuchet(int rotX, int rotY){
 void GLWindow::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    gluLookAt(0,10,-10,0,5,0,0,1,0);
+    gluLookAt(0,10,-10,0,10,0,0,1,0);
 
+    //glRotatef(yRot,0,1,0);
     //drawFence();
-    // drawTerrain();
+    //drawTerrain();
     drawTrebuchet(0,yRot);
     //drawPlankClose();
     //drawCylinder();

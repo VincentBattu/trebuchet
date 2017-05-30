@@ -11,7 +11,9 @@ class GLWindow : public GLWidget
 private:
     int yRot;
     GLuint GLdisplayList[1];
-    QOpenGLTexture *texture;
+    QOpenGLTexture *textureWood;
+    QOpenGLTexture *textureFence;
+    QOpenGLTexture *textureGrass;
 public:
 
     explicit GLWindow(QWidget *parent = 0);
@@ -28,7 +30,9 @@ public:
     void drawCylinder();
     void drawArmature();
 
-    void loadAndBlind(char* filename);
+    void loadAndBlindWood();
+    void loadAndBlindFence();
+    void loadAndBlindGrass();
 
 public slots:
     void setYRotation(int angle);
