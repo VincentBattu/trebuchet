@@ -9,7 +9,7 @@
  * est appelé avec un z différent. L'affichage de la cible est
  * faite par l'intermédiaire de la classe TargetDrawer.
  */
-class Level
+class Level : QObject
 {
     Q_OBJECT
 
