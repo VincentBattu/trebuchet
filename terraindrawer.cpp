@@ -84,9 +84,9 @@ void TerrainDrawer::drawTerrain(){
                     glTexCoord2d(0,0);
                     glVertex3d(-5,0,0);
                     glTexCoord2d(0,1);
-                    glVertex3d(-5,0,7.5);
+                    glVertex3d(-5,0,8);
                     glTexCoord2d(1,1);
-                    glVertex3d(5,0,7.5);
+                    glVertex3d(5,0,8);
                     glTexCoord2d(1,0);
                     glVertex3d(5,0,0);
                 glEnd();
@@ -101,9 +101,9 @@ void TerrainDrawer::drawTerrain(){
                     glTexCoord2d(0,0);
                     glVertex3d(5,0,0);
                     glTexCoord2d(0,1);
-                    glVertex3d(5,0,7.5);
+                    glVertex3d(5,0,8);
                     glTexCoord2d(1,1);
-                    glVertex3d(-5,0,7.5);
+                    glVertex3d(-5,0,8);
                 glEnd();
             glPopMatrix();
             glDisable( GL_TEXTURE_2D );
@@ -126,7 +126,7 @@ void TerrainDrawer::drawTerrain(){
             drawFence();
         glPopMatrix();
     }
-    tag=0;
+    tag=1;
     for (int j =-42; j <=54; j+=step3){
         if(tag==0){
             loadAndBlindLogo();
@@ -142,9 +142,9 @@ void TerrainDrawer::drawTerrain(){
                     glTexCoord2d(0,0);
                     glVertex3d(-5,0,0);
                     glTexCoord2d(0,1);
-                    glVertex3d(-5,0,7.5);
+                    glVertex3d(-5,0,8);
                     glTexCoord2d(1,1);
-                    glVertex3d(5,0,7.5);
+                    glVertex3d(5,0,8);
                     glTexCoord2d(1,0);
                     glVertex3d(5,0,0);
                 glEnd();

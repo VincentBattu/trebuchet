@@ -4,8 +4,12 @@
 #include "glwidget.h"
 #include "terraindrawer.h"
 #include "trebuchetdrawer.h"
-#include "targetdrawer.h"
+#include "level.h"
 
+/**
+ * Classe gérant l'appel pour l'affichage des différents
+ * éléments de la scène.
+ */
 class GLWindow : public GLWidget
 {
     Q_OBJECT
@@ -15,7 +19,7 @@ private:
 
     TerrainDrawer *terrain;
     TrebuchetDrawer *trebuchet;
-    TargetDrawer *target;
+    Level *level;
 public:
 
     explicit GLWindow(QWidget *parent = 0);
