@@ -34,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :  QMainWindow(parent), ui(new Ui::MainW
     connect(displayCamTimer, SIGNAL(timeout()), this, SLOT(displayCam()));
     displayCamTimer->start(20);
 
+    connect(ui->difficulty, SIGNAL(currentIndexChanged(int)), ui->widget, SLOT(setLevel(int)));
+
 
 }
 

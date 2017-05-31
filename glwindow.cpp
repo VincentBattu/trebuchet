@@ -60,3 +60,8 @@ void GLWindow::paintGL(){
     //glRotatef(yRot,0,1,0);
     level->drawTarget();
 }
+
+void GLWindow::setLevel(int lvl){
+     level->setLevel(lvl);
+    level->choosePosition();
+}

@@ -9,9 +9,9 @@
  * est appelé avec un z différent. L'affichage de la cible est
  * faite par l'intermédiaire de la classe TargetDrawer.
  */
-class Level : QObject
+class Level
 {
-    Q_OBJECT
+
 
 private:
     /**
@@ -38,12 +38,12 @@ private:
      * Valeur minimale de x
      * @brief minX
      */
-    int minX = -4;
+    int minX = -50;
     /**
      * Valeur maximale de x
      * @brief maxX
      */
-    int maxX = 4;
+    int maxX = 50;
     /**
      * Integer correspondant au niveau de difficulté choisi
      * @brief lvl
@@ -74,8 +74,7 @@ public:
      */
     void drawTarget();
 
-public slots:
-    void setLevel(int lvl);
+    void setLevel(int lvl) { this->lvl = lvl; }
 };
 
 #endif // LEVEL_H

@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>477</width>
-    <height>556</height>
+    <width>875</width>
+    <height>654</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -17,12 +23,20 @@
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <widget class="GLWindow" name="widget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="minimumSize">
        <size>
         <width>200</width>
         <height>200</height>
        </size>
       </property>
+      <zorder></zorder>
+      <zorder></zorder>
      </widget>
     </item>
     <item>
@@ -31,18 +45,61 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QPushButton" name="save">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
           <property name="text">
            <string>Mémoriser image</string>
           </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="difficulty">
+          <item>
+           <property name="text">
+            <string>Facile</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Moyen</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Difficile</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>
       </item>
       <item>
        <widget class="QLabel" name="camera">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
           <width>200</width>
+          <height>200</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>400</width>
           <height>200</height>
          </size>
         </property>
@@ -60,8 +117,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>477</width>
-     <height>26</height>
+     <width>875</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

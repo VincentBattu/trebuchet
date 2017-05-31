@@ -16,6 +16,7 @@ class GLWindow : public GLWidget
 
 private:
     int yRot;
+    int xRot;
 
     TerrainDrawer *terrain;
     TrebuchetDrawer *trebuchet;
@@ -30,6 +31,7 @@ public:
 public slots:
     void setYRotation(int angle);
     void setXRotation(int angle);
+    void setLevel(int level);
 };
 
 #endif // GLWINDOW_H

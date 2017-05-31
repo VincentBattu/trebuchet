@@ -32,7 +32,3 @@ void Level::drawTarget(){
     target->drawTarget(pos[0],pos[1],pos[2]);
 }
 
-void Level::setLevel(int lvl){
-    choosePosition();
-    this->lvl = lvl;
-}
