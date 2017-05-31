@@ -8,7 +8,8 @@ GLWindow::GLWindow(QWidget *parent) : GLWidget(60, parent, "Test")
     yRot = 0;
     terrain = new TerrainDrawer();
     trebuchet = new TrebuchetDrawer();
-    target = new TargetDrawer();
+    level = new Level();
+    level->choosePosition();
 }
 
 void GLWindow::initializeGL(){
@@ -52,5 +53,5 @@ void GLWindow::paintGL(){
     glRotatef(yRot,0,1,0);
     //terrain->drawTerrain();
     //trebuchet->drawTrebuchet(0,yRot);
-    target->drawTarget();
+    level->drawTarget();
 }

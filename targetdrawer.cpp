@@ -4,14 +4,16 @@
 
 TargetDrawer::TargetDrawer()
 {
-    textureWood = NULL;
     textureTarget = NULL;
 }
 
-void TargetDrawer::drawTarget(){
+void TargetDrawer::drawTarget(int x, int y, int z){
     glPushMatrix();
-        glScalef(4,4,.2);
-        drawCylinder();
+        glTranslatef(x,y,z);
+        glPushMatrix();
+            glScalef(4,4,.2);
+            drawCylinder();
+        glPopMatrix();
     glPopMatrix();
 
 }
@@ -29,33 +31,23 @@ void TargetDrawer::drawCylinder(){
         glEnable(GL_TEXTURE_GEN_S);
         glEnable(GL_TEXTURE_GEN_T);
         gluQuadricTexture(gluNewQuadric(),GL_TRUE);
-        /*glEnable(GL_CLAMP_TO_BORDER);
+        glEnable(GL_CLAMP_TO_BORDER);
         glEnable(GL_CLAMP_TO_EDGE);
-        glDisable(GL_REPEAT);*/
-        gluDisk(gluNewQuadric(),0,.5,15,1);
+        glDisable(GL_REPEAT);
+        gluDisk(gluNewQuadric(),0,.5,5,1);
         glPushMatrix();
             glTranslatef(0,0,1);
-            gluDisk(gluNewQuadric(),0,.5,15,1);
+            gluDisk(gluNewQuadric(),0,.5,10,10);
         glPopMatrix();
         glDisable(GL_TEXTURE_GEN_S);
         glDisable(GL_TEXTURE_GEN_T);
-        /*glDisable(GL_CLAMP_TO_BORDER);
+        glDisable(GL_CLAMP_TO_BORDER);
         glDisable(GL_CLAMP_TO_EDGE);
-        glEnable(GL_REPEAT);*/
+        glEnable(GL_REPEAT);
     glPopMatrix();
     glDisable( GL_TEXTURE_2D );
     glEnable( GL_CULL_FACE );
 
-}
-
-
-void TargetDrawer::loadAndBlindWood(){
-    if(textureWood == NULL){
-        textureWood = new QOpenGLTexture(QImage(":/textures/wood.png").mirrored());
-        textureWood->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
-        textureWood->setMagnificationFilter(QOpenGLTexture::Linear);
-    }
-    textureWood->bind();
 }
 
 void TargetDrawer::loadAndBlindTarget(){

@@ -3,20 +3,45 @@
 
 #include <QOpenGLTexture>
 
+/**
+ * Classe créant le rendu openGL de la cible.
+ */
 class TargetDrawer
 {
 
 private:
-    QOpenGLTexture *textureWood;
+    /**
+     * Stocke la texture utilisée pour la cible
+     * @brief textureTarget
+     */
     QOpenGLTexture *textureTarget;
 public:
 
+    /**
+     * Constructeur
+     * @brief TargetDrawer
+     */
     explicit TargetDrawer();
 
-    void drawTarget();
+    /**
+     * Rendu openGL de la cible aux coordonnées données
+     * @brief drawTarget
+     * @param x
+     * @param y
+     * @param z
+     */
+    void drawTarget(int x, int y, int z);
+    /**
+     * Rendu openGL du cylindre utilisé
+     * @brief drawCylinder
+     */
     void drawCylinder();
 
-    void loadAndBlindWood();
+    /**
+     * Charge la texture lors du premier appel et
+     * fixe cette texture comme texture principale
+     * @brief loadAndBlindTarget
+     */
     void loadAndBlindTarget();
 };
 

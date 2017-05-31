@@ -30,14 +30,16 @@ SOURCES += main.cpp\
     glwindow.cpp \
     terraindrawer.cpp \
     trebuchetdrawer.cpp \
-    targetdrawer.cpp
+    targetdrawer.cpp \
+    level.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
     glwindow.h \
     terraindrawer.h \
     trebuchetdrawer.h \
-    targetdrawer.h
+    targetdrawer.h \
+    level.h
 
 FORMS    += mainwindow.ui
 
