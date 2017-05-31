@@ -11,28 +11,29 @@
  */
 class Level
 {
+    Q_OBJECT
 
 private:
     /**
-     * Coordonnées dépendant du niveau de difficulté
+     * Tableau contenant les limites pour le z en fonction du niveau
      * @brief z
      */
-    int z;
+    int z[6] = {48,52,73,77,98,102};
     /**
-     * Tableau contenant les coordonnées générées : x et y
+     * Tableau contenant les coordonnées générées
      * @brief pos
      */
-    int pos[2];
+    int pos[3];
     /**
      * Valeur minimale de y
      * @brief minY
      */
-    int minY = 4;
+    int minY = 6;
     /**
      * Valeur maximale de y
      * @brief maxY
      */
-    int maxY = 10;
+    int maxY = 14;
     /**
      * Valeur minimale de x
      * @brief minX
@@ -43,17 +44,26 @@ private:
      * @brief maxX
      */
     int maxX = 4;
+    /**
+     * Integer correspondant au niveau de difficulté choisi
+     * @brief lvl
+     */
+    int lvl;
+    /**
+     * Rendu openGL de la cible
+     * @brief target
+     */
     TargetDrawer *target;
 public:
 
     /**
      * Constructeur
      * @brief Level
-     * @param z
+     * @param lvl
      */
-    explicit Level(int z=0);
+    explicit Level(int lvl=0);
     /**
-     * Générateur des coordonnées x et y
+     * Générateur des coordonnées
      * @brief choosePosition
      */
     void choosePosition();
@@ -63,12 +73,9 @@ public:
      * @brief drawTarget
      */
     void drawTarget();
-    /**
-     * Fixe z
-     * @brief setZ
-     * @param z
-     */
-    void setZ(int z);
+
+public slots:
+    void setLevel(int lvl);
 };
 
 #endif // LEVEL_H
