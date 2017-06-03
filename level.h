@@ -18,7 +18,7 @@ private:
      * Tableau contenant les limites pour le z en fonction du niveau
      * @brief z
      */
-    int z[6] = {48,52,73,77,98,102};
+    int z[6] = {10,15,73,77,98,102};
     /**
      * Tableau contenant les coordonnées générées
      * @brief pos
@@ -33,17 +33,18 @@ private:
      * Valeur maximale de y
      * @brief maxY
      */
-    int maxY = 14;
+    int maxY = 8;
     /**
      * Valeur minimale de x
      * @brief minX
      */
-    int minX = -50;
+    int minX = -15;
+
     /**
      * Valeur maximale de x
      * @brief maxX
      */
-    int maxX = 50;
+    int maxX = 15;
     /**
      * Integer correspondant au niveau de difficulté choisi
      * @brief lvl

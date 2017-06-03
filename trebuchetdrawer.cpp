@@ -5,10 +5,11 @@
 TrebuchetDrawer::TrebuchetDrawer()
 {
     textureWood = NULL;
+    projectile = new ProjectileDrawer();
 }
 
 
-void TrebuchetDrawer::loadAndBlindWood(){
+void TrebuchetDrawer::loadAndBindWood(){
     if(textureWood == NULL){
         textureWood = new QOpenGLTexture(QImage(":/textures/wood.png").mirrored());
         textureWood->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
@@ -21,7 +22,7 @@ void TrebuchetDrawer::drawPlankClose(){
 
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_CULL_FACE );
-    loadAndBlindWood();
+    loadAndBindWood();
     glPushMatrix();
         glMatrixMode( GL_MODELVIEW );
         glEnable(GL_TEXTURE_GEN_S);
@@ -64,7 +65,7 @@ void TrebuchetDrawer::drawPlankClose(){
 void TrebuchetDrawer::drawPlankOpen(){
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_CULL_FACE );
-    loadAndBlindWood();
+    loadAndBindWood();
     glPushMatrix();
         glMatrixMode( GL_MODELVIEW );
         glEnable(GL_TEXTURE_GEN_S);
@@ -132,7 +133,7 @@ void TrebuchetDrawer::drawCylinder(){
 
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_CULL_FACE );
-    loadAndBlindWood();
+    loadAndBindWood();
     glPushMatrix();
         glMatrixMode( GL_MODELVIEW );
         glEnable(GL_TEXTURE_GEN_S);
@@ -221,6 +222,11 @@ void TrebuchetDrawer::drawTrebuchet(int rotX, int rotY){
                 glTranslatef(-3.9,-1.1,.5);
                 glScalef(3,3,1.5);
                 drawPlankClose();
+            glPopMatrix ();
+            glPushMatrix ();
+                glTranslatef(12,.2,.5);
+                glScalef(.4,.4,.4);
+                projectile->drawProjectile();
             glPopMatrix ();
         glPopMatrix ();
 

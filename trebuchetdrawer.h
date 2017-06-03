@@ -2,6 +2,7 @@
 #define TREBUCHETDRAWER_H
 
 #include <QOpenGLTexture>
+#include "projectiledrawer.h"
 
 /**
  * Classe créant le rendu openGL du trébuchet.
@@ -15,6 +16,11 @@ private:
      * @brief textureWood
      */
     QOpenGLTexture *textureWood;
+    /**
+     * Classe pour le rendu openGL du projectile
+     * @brief projectile
+     */
+    ProjectileDrawer *projectile;
 public:
 
     /**
@@ -56,9 +62,9 @@ public:
     /**
      * Charge la texture lors du premier appel et
      * fixe cette texture comme texture principale
-     * @brief loadAndBlindWood
+     * @brief loadAndBindWood
      */
-    void loadAndBlindWood();
+    void loadAndBindWood();
 };
 
 #endif // TREBUCHETDRAWER_H

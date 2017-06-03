@@ -56,8 +56,8 @@ void GLWindow::paintGL(){
 
     gluLookAt(0,10,-10,0,4,0,0,1,0);
 
-    terrain->drawTerrain();
-    //trebuchet->drawTrebuchet(0,yRot);
+    //terrain->drawTerrain();
+    trebuchet->drawTrebuchet(0,yRot);
     //glRotatef(yRot,0,1,0);
     level->drawTarget();
 
