@@ -5,6 +5,7 @@
 TrebuchetDrawer::TrebuchetDrawer()
 {
     textureWood = NULL;
+    projectile = new ProjectileDrawer();
 }
 
 
@@ -221,6 +222,11 @@ void TrebuchetDrawer::drawTrebuchet(int rotX, int rotY){
                 glTranslatef(-3.9,-1.1,.5);
                 glScalef(3,3,1.5);
                 drawPlankClose();
+            glPopMatrix ();
+            glPushMatrix ();
+                glTranslatef(12,.2,.5);
+                glScalef(.4,.4,.4);
+                projectile->drawProjectile();
             glPopMatrix ();
         glPopMatrix ();
 

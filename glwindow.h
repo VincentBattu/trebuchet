@@ -20,7 +20,6 @@ private:
     TerrainDrawer *terrain;
     TrebuchetDrawer *trebuchet;
     Level *level;
-    ProjectileDrawer *projectile;
 public:
 
     explicit GLWindow(QWidget *parent = 0);

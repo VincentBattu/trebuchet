@@ -2,6 +2,7 @@
 #define TREBUCHETDRAWER_H
 
 #include <QOpenGLTexture>
+#include "projectiledrawer.h"
 
 /**
  * Classe créant le rendu openGL du trébuchet.
@@ -15,6 +16,11 @@ private:
      * @brief textureWood
      */
     QOpenGLTexture *textureWood;
+    /**
+     * Classe pour le rendu openGL du projectile
+     * @brief projectile
+     */
+    ProjectileDrawer *projectile;
 public:
 
     /**

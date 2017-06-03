@@ -30,12 +30,6 @@ public:
     void drawProjectile();
 
     /**
-     * Rendu openGL du cylindre utilisé pour les poteaux
-     * @brief drawCylinder
-     */
-    void drawCylinder();
-
-    /**
      * Charge la texture lors du premier appel et
      * fixe cette texture comme texture principale
      * @brief loadAndBindRock
