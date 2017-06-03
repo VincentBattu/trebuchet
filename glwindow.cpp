@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <GL/glu.h>
 #include <QOpenGLTexture>
+#include <unistd.h>
 
 GLWindow::GLWindow(QWidget *parent) : GLWidget(60, parent, "Test")
 {
@@ -52,13 +53,18 @@ void GLWindow::resizeGL(int width, int height){
 void GLWindow::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    gluLookAt(0,10,-10,0,4,0,0,1,0);
 
+    gluLookAt(0,10,-10,0,4,0,0,1,0);
 
     terrain->drawTerrain();
     //trebuchet->drawTrebuchet(0,yRot);
     //glRotatef(yRot,0,1,0);
     level->drawTarget();
+
+
+
+
+
 }
 
 void GLWindow::setLevel(int lvl){

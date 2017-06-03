@@ -34,6 +34,7 @@ private:
      */
     QTimer *processTimer;
 
+
     // Rectangle pour mémoriser la main
     int templateWidth = 64;
     int templateHeight = 64;

@@ -50,7 +50,19 @@ void MainWindow::displayCam(){
     if (matOriginal.empty() == true)  return;
 
     flip(matOriginal, matOriginal, 1);
-    templateImage = Mat(matOriginal, *templateRect).clone();
+    Mat templatedImg;
+   if (maxLoc.x = -1){
+       templatedImg = matOriginal;
+   } else {
+       int heightRect = 30;
+       int xRect = maxLoc.x-heightRect;
+       int yRect = maxLoc.y -heightRect;
+       int width = templateWidth +heightRect *2;
+       int height = templateHeight +heightRect*2;
+       Rect roi = Rect(xRect, yRect, width, height);
+       templatedImg = Mat(matOriginal, roi);
+   }
+    templateImage = Mat(templatedImg, *templateRect).clone();
     rectangle(matOriginal, *templateRect, Scalar(0,0,255),2,8,0);
 
     cvtColor(matOriginal, matOriginal, CV_BGR2RGB);
@@ -92,10 +104,12 @@ void MainWindow::getCoordinate(){
             templatedImg = Mat(matOriginal, roi);
         }
 
+
         matchTemplate(templatedImg, templateImage, resultImage, TM_CCORR_NORMED);
 
         minMaxLoc(resultImage, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
         resultRect = Rect(maxLoc.x, maxLoc.y, templateWidth, templateHeight);
+        templateImage = Mat(matOriginal, resultRect).clone();
 
         Mat normResultImage;
         normalize(resultImage, normResultImage, 1, 0, NORM_MINMAX);
