@@ -56,9 +56,9 @@ public:
     /**
      * Charge la texture lors du premier appel et
      * fixe cette texture comme texture principale
-     * @brief loadAndBlindWood
+     * @brief loadAndBindWood
      */
-    void loadAndBlindWood();
+    void loadAndBindWood();
 };
 
 #endif // TREBUCHETDRAWER_H

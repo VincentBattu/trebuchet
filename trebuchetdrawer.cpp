@@ -8,7 +8,7 @@ TrebuchetDrawer::TrebuchetDrawer()
 }
 
 
-void TrebuchetDrawer::loadAndBlindWood(){
+void TrebuchetDrawer::loadAndBindWood(){
     if(textureWood == NULL){
         textureWood = new QOpenGLTexture(QImage(":/textures/wood.png").mirrored());
         textureWood->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
@@ -21,7 +21,7 @@ void TrebuchetDrawer::drawPlankClose(){
 
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_CULL_FACE );
-    loadAndBlindWood();
+    loadAndBindWood();
     glPushMatrix();
         glMatrixMode( GL_MODELVIEW );
         glEnable(GL_TEXTURE_GEN_S);
@@ -64,7 +64,7 @@ void TrebuchetDrawer::drawPlankClose(){
 void TrebuchetDrawer::drawPlankOpen(){
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_CULL_FACE );
-    loadAndBlindWood();
+    loadAndBindWood();
     glPushMatrix();
         glMatrixMode( GL_MODELVIEW );
         glEnable(GL_TEXTURE_GEN_S);
@@ -132,7 +132,7 @@ void TrebuchetDrawer::drawCylinder(){
 
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_CULL_FACE );
-    loadAndBlindWood();
+    loadAndBindWood();
     glPushMatrix();
         glMatrixMode( GL_MODELVIEW );
         glEnable(GL_TEXTURE_GEN_S);

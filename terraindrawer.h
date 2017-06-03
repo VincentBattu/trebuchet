@@ -58,12 +58,12 @@ public:
     /**
      * Charge la texture lors du premier appel et
      * fixe cette texture comme texture principale
-     * @brief loadAndBlindWood
+     * @brief loadAndBindWood
      */
-    void loadAndBlindWood();
-    void loadAndBlindFence();
-    void loadAndBlindGrass();
-    void loadAndBlindLogo();
+    void loadAndBindWood();
+    void loadAndBindFence();
+    void loadAndBindGrass();
+    void loadAndBindLogo();
 };
 
 #endif // TERRAIN_H

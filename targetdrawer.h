@@ -40,9 +40,9 @@ public:
     /**
      * Charge la texture lors du premier appel et
      * fixe cette texture comme texture principale
-     * @brief loadAndBlindTarget
+     * @brief loadAndBindTarget
      */
-    void loadAndBlindTarget();
+    void loadAndBindTarget();
 };
 
 #endif // TARGETDRAWER_H

@@ -11,7 +11,7 @@ TerrainDrawer::TerrainDrawer()
 }
 
 
-void TerrainDrawer::loadAndBlindWood(){
+void TerrainDrawer::loadAndBindWood(){
     if(textureWood == NULL){
         textureWood = new QOpenGLTexture(QImage(":/textures/wood.png").mirrored());
         textureWood->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
@@ -19,7 +19,7 @@ void TerrainDrawer::loadAndBlindWood(){
     }
     textureWood->bind();
 }
-void TerrainDrawer::loadAndBlindFence(){
+void TerrainDrawer::loadAndBindFence(){
     if(textureFence == NULL){
         textureFence = new QOpenGLTexture(QImage(":/textures/fence.png").mirrored());
         textureFence->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
@@ -27,7 +27,7 @@ void TerrainDrawer::loadAndBlindFence(){
     }
     textureFence->bind();
 }
-void TerrainDrawer::loadAndBlindGrass(){
+void TerrainDrawer::loadAndBindGrass(){
     if(textureGrass == NULL){
         textureGrass = new QOpenGLTexture(QImage(":/textures/grass.jpg").mirrored());
         textureGrass->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
@@ -35,9 +35,9 @@ void TerrainDrawer::loadAndBlindGrass(){
     }
     textureGrass->bind();
 }
-void TerrainDrawer::loadAndBlindLogo(){
+void TerrainDrawer::loadAndBindLogo(){
     if(textureLogo == NULL){
-        textureLogo = new QOpenGLTexture(QImage(":/textures/logo2").mirrored());
+        textureLogo = new QOpenGLTexture(QImage(":/textures/logo").mirrored());
         textureLogo->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
         textureLogo->setMagnificationFilter(QOpenGLTexture::Linear);
     }
@@ -46,7 +46,7 @@ void TerrainDrawer::loadAndBlindLogo(){
 
 
 void TerrainDrawer::drawTerrain(){
-    loadAndBlindGrass();
+    loadAndBindGrass();
     glColor3ub(255,255,255);
     int step=10;
     int step2=16;
@@ -70,49 +70,7 @@ void TerrainDrawer::drawTerrain(){
     glDisable( GL_TEXTURE_2D );
     glEnable( GL_CULL_FACE );
     int tag=0;
-    for (int i =-100; i <=100; i+=step2){
-        if(tag==0){
-            loadAndBlindLogo();
-            glPushMatrix();
-                glColor3f(1,1,1);
-                glEnable( GL_TEXTURE_2D );
-                glDisable( GL_CULL_FACE );
-                glTranslatef(-49,0,i);
-                glRotatef(90,0,0,1);
-                glRotatef(90,0,1,0);
-                glBegin(GL_QUADS);
-                    glTexCoord2d(0,0);
-                    glVertex3d(-5,0,0);
-                    glTexCoord2d(0,1);
-                    glVertex3d(-5,0,8);
-                    glTexCoord2d(1,1);
-                    glVertex3d(5,0,8);
-                    glTexCoord2d(1,0);
-                    glVertex3d(5,0,0);
-                glEnd();
-            glPopMatrix();
-            glPushMatrix();
-                glTranslatef(49,0,i);
-                glRotatef(90,0,0,1);
-                glRotatef(90,0,1,0);
-                glBegin(GL_QUADS);
-                    glTexCoord2d(1,0);
-                    glVertex3d(-5,0,0);
-                    glTexCoord2d(0,0);
-                    glVertex3d(5,0,0);
-                    glTexCoord2d(0,1);
-                    glVertex3d(5,0,8);
-                    glTexCoord2d(1,1);
-                    glVertex3d(-5,0,8);
-                glEnd();
-            glPopMatrix();
-            glDisable( GL_TEXTURE_2D );
-            glEnable( GL_CULL_FACE );
-
-            tag=1;
-        }else{
-            tag=0;
-        }
+    for (int i =-110; i <=110; i+=step2){
         glPushMatrix();
             glTranslatef(-50,0,i);
             glRotatef(-90,0,1,0);
@@ -125,24 +83,83 @@ void TerrainDrawer::drawTerrain(){
             glScalef(2,1,1);
             drawFence();
         glPopMatrix();
-    }
-    tag=1;
-    for (int j =-42; j <=54; j+=step3){
         if(tag==0){
-            loadAndBlindLogo();
+            loadAndBindLogo();
             glPushMatrix();
                 glColor3f(1,1,1);
                 glEnable( GL_TEXTURE_2D );
+                glEnable( GL_BLEND );
+                glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
                 glDisable( GL_CULL_FACE );
-                glTranslatef(j,0,103);
+                glColor3f(1,1,1);
+                glTranslatef(-49,0,i);
+                glRotatef(90,0,0,1);
+                glRotatef(90,0,1,0);
+                glBegin(GL_QUADS);
+                    glTexCoord2d(0,0);
+                    glVertex3d(-7,0,0);
+                    glTexCoord2d(0,1);
+                    glVertex3d(-7,0,8);
+                    glTexCoord2d(1,1);
+                    glVertex3d(8,0,8);
+                    glTexCoord2d(1,0);
+                    glVertex3d(8,0,0);
+                glEnd();
+            glPopMatrix();
+            glPushMatrix();
+                glTranslatef(49,0,i);
+                glRotatef(90,0,0,1);
+                glRotatef(90,0,1,0);
+                glBegin(GL_QUADS);
+                    glTexCoord2d(1,0);
+                    glVertex3d(-7,0,0);
+                    glTexCoord2d(0,0);
+                    glVertex3d(8,0,0);
+                    glTexCoord2d(0,1);
+                    glVertex3d(8,0,8);
+                    glTexCoord2d(1,1);
+                    glVertex3d(-7,0,8);
+                glEnd();
+            glPopMatrix();
+            glDisable( GL_TEXTURE_2D );
+            glDisable( GL_BLEND );
+            glEnable( GL_CULL_FACE );
+
+            tag=1;
+        }else{
+            tag=0;
+        }
+    }
+    tag=0;
+    for (int j =-42; j <=54; j+=step3){
+        glPushMatrix();
+            glTranslatef(j,0,106);
+            glScalef(2,1,1);
+            drawFence();
+        glPopMatrix();
+        glPushMatrix();
+            glTranslatef(j,0,-100);
+            glScalef(2,1,1);
+            drawFence();
+        glPopMatrix();
+        if(tag==0){
+            loadAndBindLogo();
+            glPushMatrix();
+                glColor3f(1,1,1);
+                glEnable( GL_TEXTURE_2D );
+                glEnable( GL_BLEND );
+                glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+                glDisable( GL_CULL_FACE );
+                glColor3f(1,1,1);
+                glTranslatef(j,0,105);
                 glRotatef(90,0,0,1);
                 glRotatef(90,1,0,0);
                 glRotatef(90,0,1,0);
                 glBegin(GL_QUADS);
                     glTexCoord2d(0,0);
-                    glVertex3d(-5,0,0);
+                    glVertex3d(-7,0,0);
                     glTexCoord2d(0,1);
-                    glVertex3d(-5,0,8);
+                    glVertex3d(-7,0,8);
                     glTexCoord2d(1,1);
                     glVertex3d(5,0,8);
                     glTexCoord2d(1,0);
@@ -155,31 +172,23 @@ void TerrainDrawer::drawTerrain(){
                 glRotatef(90,0,1,0);
                 glBegin(GL_QUADS);
                     glTexCoord2d(1,0);
-                    glVertex3d(-5,0,0);
+                    glVertex3d(-8,0,0);
                     glTexCoord2d(0,0);
-                    glVertex3d(5,0,0);
+                    glVertex3d(8,0,0);
                     glTexCoord2d(0,1);
-                    glVertex3d(5,0,7.5);
+                    glVertex3d(8,0,7.5);
                     glTexCoord2d(1,1);
-                    glVertex3d(-5,0,7.5);
+                    glVertex3d(-8,0,7.5);
                 glEnd();
             glPopMatrix();*/
             glDisable( GL_TEXTURE_2D );
+            glDisable( GL_BLEND );
             glEnable( GL_CULL_FACE );
             tag=1;
         }else{
             tag=0;
         }
-        glPushMatrix();
-            glTranslatef(j,0,104);
-            glScalef(2,1,1);
-            drawFence();
-        glPopMatrix();
-        glPushMatrix();
-            glTranslatef(j,0,-100);
-            glScalef(2,1,1);
-            drawFence();
-        glPopMatrix();
+
     }
 }
 
@@ -202,7 +211,7 @@ void TerrainDrawer::drawFence(){
         drawCylinder();
         glColor3f(1,1,1);
     glPopMatrix();
-    loadAndBlindFence();
+    loadAndBindFence();
     glPushMatrix();
         glEnable( GL_TEXTURE_2D );
         glEnable( GL_BLEND );
@@ -230,7 +239,7 @@ void TerrainDrawer::drawCylinder(){
 
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_CULL_FACE );
-    loadAndBlindWood();
+    loadAndBindWood();
     glPushMatrix();
         glMatrixMode( GL_MODELVIEW );
         glEnable(GL_TEXTURE_GEN_S);

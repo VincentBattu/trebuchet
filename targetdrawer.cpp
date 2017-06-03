@@ -10,10 +10,8 @@ TargetDrawer::TargetDrawer()
 void TargetDrawer::drawTarget(int x, int y, int z){
     glPushMatrix();
         glTranslatef(x,y,z);
-        glPushMatrix();
-            glScalef(6,6,.2);
-            drawCylinder();
-        glPopMatrix();
+        glScalef(6,6,.2);
+        drawCylinder();
     glPopMatrix();
 
 }
@@ -26,7 +24,7 @@ void TargetDrawer::drawCylinder(){
         glMatrixMode( GL_MODELVIEW );
         glColor3f(0,0,0);
         gluCylinder(gluNewQuadric(),.5,.5,1,15,15);
-        loadAndBlindTarget();
+        loadAndBindTarget();
         glColor3f(1,1,1);
         glEnable(GL_TEXTURE_GEN_S);
         glEnable(GL_TEXTURE_GEN_T);
@@ -37,7 +35,7 @@ void TargetDrawer::drawCylinder(){
         gluDisk(gluNewQuadric(),0,.5,5,1);
         glPushMatrix();
             glTranslatef(0,0,1);
-            gluDisk(gluNewQuadric(),0,.5,10,10);
+            gluDisk(gluNewQuadric(),0,.5,20,1);
         glPopMatrix();
         glDisable(GL_TEXTURE_GEN_S);
         glDisable(GL_TEXTURE_GEN_T);
@@ -50,7 +48,7 @@ void TargetDrawer::drawCylinder(){
 
 }
 
-void TargetDrawer::loadAndBlindTarget(){
+void TargetDrawer::loadAndBindTarget(){
     if(textureTarget == NULL){
         textureTarget = new QOpenGLTexture(QImage(":/textures/cible.png").mirrored());
         textureTarget->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);

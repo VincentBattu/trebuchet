@@ -4,8 +4,8 @@
         <file>wood.png</file>
         <file>grass.jpg</file>
         <file>cible.png</file>
-        <file alias="logo">Logo_Telecom_Saint-Etienne.png</file>
-        <file alias="logo2">logo_tse.png</file>
         <file>cible2.jpg</file>
+        <file alias="logo">logo_tse3.png</file>
+        <file alias="rock">pierre.jpg</file>
     </qresource>
 </RCC>
