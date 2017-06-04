@@ -4,7 +4,6 @@
         <file>wood.png</file>
         <file>grass.jpg</file>
         <file>cible.png</file>
-        <file>cible2.jpg</file>
         <file alias="logo">logo_tse3.png</file>
         <file alias="rock">pierre.jpg</file>
     </qresource>

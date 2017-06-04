@@ -6,6 +6,7 @@
 #include "trebuchetdrawer.h"
 #include "level.h"
 #include "projectiledrawer.h"
+#include "trajectory.h"
 
 /**
  * Classe gérant l'appel pour l'affichage des différents
@@ -22,6 +23,8 @@ private:
     TerrainDrawer *terrain;
     TrebuchetDrawer *trebuchet;
     Level *level;
+    ProjectileDrawer *projectile;
+    Trajectory *trajectoire;
 public:
 
     explicit GLWindow(QWidget *parent = 0);

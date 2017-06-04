@@ -10,6 +10,8 @@ GLWindow::GLWindow(QWidget *parent) : GLWidget(60, parent, "Test")
     terrain = new TerrainDrawer();
     trebuchet = new TrebuchetDrawer();
     level = new Level(0);
+    projectile = new ProjectileDrawer();
+    trajectoire = new Trajectory(0,10,-15,trebuchet->projectile,level->target);
 }
 
 void GLWindow::initializeGL(){
@@ -54,20 +56,19 @@ void GLWindow::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    gluLookAt(0,10,-10,0,4,0,0,1,0);
+    gluLookAt(0,10,-15,0,10,0,0,1,0);
 
-    //terrain->drawTerrain();
+    terrain->drawTerrain();
     trebuchet->drawTrebuchet(0,yRot);
     //glRotatef(yRot,0,1,0);
     level->drawTarget();
 
-
-
-
+    trebuchet->projectile->drawProjectile();
+    //trajectoire->drawTrajectory();
 
 }
 
 void GLWindow::setLevel(int lvl){
-     level->setLevel(lvl);
+    level->setLevel(lvl);
     level->choosePosition();
 }

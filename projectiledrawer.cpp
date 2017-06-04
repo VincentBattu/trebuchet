@@ -5,6 +5,12 @@
 ProjectileDrawer::ProjectileDrawer()
 {
     textureRock = NULL;
+    /*x=30;
+    y=-.2;
+    z=1.9;*/
+    x=0;
+    y=10;
+    z=-15;
 }
 
 void ProjectileDrawer::loadAndBindRock(){
@@ -21,14 +27,25 @@ void ProjectileDrawer::drawProjectile(){
     glDisable( GL_CULL_FACE );
     loadAndBindRock();
     glPushMatrix();
+        glTranslatef(x,y,z);
         glColor3f(1,1,1);
         glEnable(GL_TEXTURE_GEN_S);
         glEnable(GL_TEXTURE_GEN_T);
         gluQuadricTexture(gluNewQuadric(),GL_TRUE);
-        gluSphere(gluNewQuadric(),2,10,10);
+        glDisable(GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        gluSphere(gluNewQuadric(),2,100,100);
         glDisable(GL_TEXTURE_GEN_S);
         glDisable(GL_TEXTURE_GEN_T);
+        glEnable(GL_REPEAT);
     glPopMatrix();
     glDisable( GL_TEXTURE_2D );
     glEnable( GL_CULL_FACE );
+}
+
+void ProjectileDrawer::setCoordinates(int x, int y, int z){
+    this->x = x;
+    this->y = y;
+    this->z = z;
 }

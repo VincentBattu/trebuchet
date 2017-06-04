@@ -223,14 +223,15 @@ void TrebuchetDrawer::drawTrebuchet(int rotX, int rotY){
                 glScalef(3,3,1.5);
                 drawPlankClose();
             glPopMatrix ();
-            glPushMatrix ();
-                glTranslatef(12,.2,.5);
-                glScalef(.4,.4,.4);
-                projectile->drawProjectile();
-            glPopMatrix ();
+
         glPopMatrix ();
 
     glPopMatrix();
+    /*glPushMatrix ();
+        //glTranslatef(12,.2,.5);
+        glScalef(.4,.4,.4);
+        projectile->drawProjectile();
+    glPopMatrix ();*/
     glDisable( GL_TEXTURE_2D );
     glEnable( GL_CULL_FACE );
 

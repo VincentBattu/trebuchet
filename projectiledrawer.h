@@ -11,6 +11,11 @@ class ProjectileDrawer
 
 private:
     /**
+     * Coordonnées du projectile
+     * @brief x,y,z
+     */
+    int x,y,z;
+    /**
      * Stocke la texture de pierre utilisée
      * @brief textureRock
      */
@@ -28,6 +33,11 @@ public:
      * @brief drawProjectile
      */
     void drawProjectile();
+    /**
+     * Fixe les coordonnées du projectile
+     * @brief setCoordinates
+     */
+    void setCoordinates(int x, int y, int z);
 
     /**
      * Charge la texture lors du premier appel et

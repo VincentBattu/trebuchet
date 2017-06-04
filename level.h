@@ -50,13 +50,13 @@ private:
      * @brief lvl
      */
     int lvl;
+
+public:
     /**
      * Rendu openGL de la cible
      * @brief target
      */
     TargetDrawer *target;
-public:
-
     /**
      * Constructeur
      * @brief Level

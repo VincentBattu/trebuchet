@@ -16,6 +16,11 @@ private:
      */
     QOpenGLTexture *textureTarget;
 public:
+    /**
+     * Coordonnées z de la cible
+     * @brief z
+     */
+    int z;
 
     /**
      * Constructeur

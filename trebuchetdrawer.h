@@ -16,13 +16,13 @@ private:
      * @brief textureWood
      */
     QOpenGLTexture *textureWood;
+
+public:
     /**
      * Classe pour le rendu openGL du projectile
      * @brief projectile
      */
     ProjectileDrawer *projectile;
-public:
-
     /**
      * Constructeur
      * @brief TrebuchetDrawer

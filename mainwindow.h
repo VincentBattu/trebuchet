@@ -33,6 +33,11 @@ private:
      * @brief processTimer QTimer pour le processus de matching
      */
     QTimer *processTimer;
+    /**
+     * @brief changeCoordTimer QTimer pour changer les coordonnées
+     * du projectile
+     */
+    QTimer *changeCoordTimer;
 
 
     // Rectangle pour mémoriser la main
