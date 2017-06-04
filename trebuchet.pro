@@ -32,7 +32,10 @@ SOURCES += main.cpp\
     trebuchetdrawer.cpp \
     targetdrawer.cpp \
     level.cpp \
-    projectiledrawer.cpp
+    projectiledrawer.cpp \
+    mass.cpp \
+    spring.cpp \
+    simulation.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -41,7 +44,10 @@ HEADERS  += mainwindow.h \
     trebuchetdrawer.h \
     targetdrawer.h \
     level.h \
-    projectiledrawer.h
+    projectiledrawer.h \
+    mass.h \
+    spring.h \
+    simulation.h
 
 FORMS    += mainwindow.ui
 
