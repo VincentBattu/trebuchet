@@ -26,6 +26,7 @@ public:
     /**
      * Constructeur
      * @brief TrebuchetDrawer
+     * @author Delphine
      */
     explicit TrebuchetDrawer();
 
@@ -35,35 +36,32 @@ public:
      * @brief drawTrebuchetProjectile
      * @param rotX
      * @param rotY
+     * @author Delphine
      */
     void drawTrebuchetProjectile(int rotX, int rotY);
     /**
-     * Rendu openGL du trébuchet sans projectile avec en paramètre
-     * les rotations horizontale et verticale voulues
-     * @brief drawTrebuchet
-     * @param rotX
-     * @param rotY
-     */
-    void drawTrebuchet(int rotX, int rotY);
-    /**
      * Rendu openGL des planches coupées droites utilisées
      * @brief drawPlankClose
+     * @author Delphine
      */
     void drawPlankClose();
     /**
      * Rendu openGL des planches coupées de biais utilisées
      * @brief drawPlankOpen
+     * @author Delphine
      */
     void drawPlankOpen();
     /**
      * Rendu openGL du cylindre utilisées
      * @brief drawCylinder
+     * @author Delphine
      */
     void drawCylinder();
     /**
      * Rendu openGL de la structure en bois utilisée pour
      * l'armature
      * @brief drawArmature
+     * @author Delphine
      */
     void drawArmature();
 
@@ -71,6 +69,7 @@ public:
      * Charge la texture lors du premier appel et
      * fixe cette texture comme texture principale
      * @brief loadAndBindWood
+     * @author Delphine
      */
     void loadAndBindWood();
 };

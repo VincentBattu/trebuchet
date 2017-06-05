@@ -35,6 +35,7 @@ public:
     /**
      * Constructeur
      * @brief TerrainDrawer
+     * @author Vincent
      */
     explicit TerrainDrawer();
 
@@ -42,16 +43,19 @@ public:
      * Rendu openGL du sol et positionne les barrières et
      * le logo TSE
      * @brief drawTerrain
+     * @author Vincent
      */
     void drawTerrain();
     /**
      * Rendu openGL d'une barrière
      * @brief drawFence
+     * @author Vincent
      */
     void drawFence();
     /**
      * Rendu openGL du cylindre utilisé pour les poteaux
      * @brief drawCylinder
+     * @author Vincent
      */
     void drawCylinder();
 
@@ -59,6 +63,7 @@ public:
      * Charge la texture lors du premier appel et
      * fixe cette texture comme texture principale
      * @brief loadAndBindWood
+     * @author Vincent
      */
     void loadAndBindWood();
     void loadAndBindFence();

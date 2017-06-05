@@ -227,57 +227,7 @@ void TrebuchetDrawer::drawTrebuchetProjectile(int rotX, int rotY){
                 glMatrixMode( GL_MODELVIEW );
                 glTranslatef(0,0,0);
                 glRotatef(-90,0,1,0);
-                //glTranslatef(12,.2,.5);
-                //glScalef(.4,.4,.4);
-                projectile->drawProjectile(rotX,rotY);
-            glPopMatrix ();
-        glPopMatrix ();
-
-    glPopMatrix();
-    glDisable( GL_TEXTURE_2D );
-    glEnable( GL_CULL_FACE );
-}
-
-void TrebuchetDrawer::drawTrebuchet(int rotX, int rotY){
-    glEnable( GL_TEXTURE_2D );
-    glDisable( GL_CULL_FACE );
-    glPushMatrix();
-        glMatrixMode( GL_MODELVIEW );
-        glRotatef(rotY,0,1,0);
-        glPushMatrix ();
-            glRotatef(90,0,1,0);
-            glScalef(1,1,10/.6);
-            drawPlankClose();
-        glPopMatrix ();
-
-        glPushMatrix ();
-            glTranslatef(1.5,0,0);
-            drawArmature();
-        glPopMatrix ();
-
-        glPushMatrix ();
-            glTranslatef(-1.5,0,0);
-            glRotatef(-180,0,1,0);
-            drawArmature();
-        glPopMatrix ();
-
-        glPushMatrix ();
-            glTranslatef(-1.2,9,0);
-            glRotatef(rotX,1,0,0);
-            glRotatef(90,0,1,0);
-            glScalef(1,1,2.4);
-            drawCylinder();
-            glPushMatrix ();
-                glTranslatef(3.7,0,.5);
-                glRotatef(90,0,1,0);
-                glScalef(1,1,17/.6);
-                drawPlankClose();
-            glPopMatrix ();
-
-            glPushMatrix ();
-                glTranslatef(-3.9,-1.1,.5);
-                glScalef(3,3,1.5);
-                drawPlankClose();
+                projectile->drawProjectile();
             glPopMatrix ();
         glPopMatrix ();
 

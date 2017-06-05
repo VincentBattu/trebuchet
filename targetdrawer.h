@@ -35,6 +35,7 @@ public:
     /**
      * Constructeur
      * @brief TargetDrawer
+     * @author Delphine
      */
     explicit TargetDrawer();
 
@@ -44,11 +45,13 @@ public:
      * @param x
      * @param y
      * @param z
+     * @author Delphine
      */
     void drawTarget(int x, int y, float z);
     /**
      * Rendu openGL du cylindre utilisé
      * @brief drawCylinder
+     * @author Delphine
      */
     void drawCylinder();
 
@@ -56,6 +59,7 @@ public:
      * Charge la texture lors du premier appel et
      * fixe cette texture comme texture principale
      * @brief loadAndBindTarget
+     * @author Delphine
      */
     void loadAndBindTarget();
 };

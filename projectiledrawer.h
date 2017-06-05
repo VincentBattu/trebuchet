@@ -25,22 +25,20 @@ public:
     /**
      * Constructeur
      * @brief ProjectileDrawer
+     * @author Delphine
      */
     explicit ProjectileDrawer();
 
     /**
      * Rendu openGL du projectile
      * @brief drawProjectile
-     */
-    void drawProjectile(int xRot,int yRot);
-    /**
-     * Rendu openGL du projectile
-     * @brief drawProjectile
+     * @author Delphine
      */
     void drawProjectile();
     /**
      * Fixe les coordonnées du projectile
      * @brief setCoordinates
+     * @author Delphine
      */
     void setCoordinates(float x, float y, float z);
 
@@ -48,6 +46,7 @@ public:
      * Charge la texture lors du premier appel et
      * fixe cette texture comme texture principale
      * @brief loadAndBindRock
+     * @author Delphine
      */
     void loadAndBindRock();
 };

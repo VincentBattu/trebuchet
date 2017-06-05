@@ -2,7 +2,8 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <iostream>
-
+#include <fstream>
+#include <iostream>
 
 using namespace cv;
 using namespace std;
@@ -16,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent) :  QMainWindow(parent), ui(new Ui::MainW
     gameTime = new QTime(0,0,0);
 
     distance = 0;
+
+    wait =false;
+
 
     cap.open(0);
     if(!cap.isOpened()){
@@ -42,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :  QMainWindow(parent), ui(new Ui::MainW
     displayCamTimer->start(20);
 
     connect(ui->difficulty, SIGNAL(currentIndexChanged(int)), this, SLOT(changeLevel(int)));
+    connect(ui->widget->trajectoire, SIGNAL(restart()), this, SLOT(restartScene()));
 
 
 }
@@ -103,24 +108,27 @@ void MainWindow::displayCam(){
        distance =0;
    }
 
-   if (distance >= 100){
-       distance=0;
-       yPreviousFrame = maxLoc.y;
-       displayCamTimer->stop();
+   if (!wait){
+       if (distance >= 100){
+           distance=0;
+           yPreviousFrame = maxLoc.y;
+           displayCamTimer->stop();
 
-       processTimer = new QTimer(this);
-       connect(processTimer, SIGNAL(timeout()), this, SLOT(getCoordinate()));
+           processTimer = new QTimer(this);
+           connect(processTimer, SIGNAL(timeout()), this, SLOT(getCoordinate()));
 
-       totalTime->start();
-       ui->targetremainding_value->setText(QString::number(nbRunsRemainded[ui->difficulty->currentIndex()]));
-       ui->information->setText(QString("Contrôler le trébuchet avec votre main et déclenchez le tir à l'aide d'un mouvement rapide vers le bas"));
-       connect(processTimer, SIGNAL(timeout()), this, SLOT(updateTotalTime()));
-       processTimer->start(20);
+           totalTime->start();
+           ui->targetremainding_value->setText(QString::number(nbRunsRemainded[ui->difficulty->currentIndex()]));
+           ui->information->setText(QString("Contrôler le trébuchet avec votre main et déclenchez le tir à l'aide d'un mouvement rapide vers le bas"));
+           connect(processTimer, SIGNAL(timeout()), this, SLOT(updateTotalTime()));
+           processTimer->start(20);
 
-       connect(this, SIGNAL(yRotationChanged(int)), ui->widget, SLOT(setYRotation(int)));
-       connect(this, SIGNAL(xRotationChanged(int)), ui->widget, SLOT(setXRotation(int)));
+           connect(this, SIGNAL(yRotationChanged(int)), ui->widget, SLOT(setYRotation(int)));
+           connect(this, SIGNAL(xRotationChanged(int)), ui->widget, SLOT(setXRotation(int)));
 
+       }
    }
+
 
 
    // Affichage de la frame
@@ -186,24 +194,21 @@ void MainWindow::getCoordinate(){
         if (distance >= 60 && nbTimer<15){
             //Lancer projectile + timer
 
-            disconnect(this, SIGNAL(yRotationChanged(int)),0, 0);
-            disconnect(this, SIGNAL(xRotationChanged(int)), 0,0);
+            wait = true;
+            processTimer->stop();
+            displayCamTimer->start(20);
             connect(ui->widget->trajectoire, SIGNAL(rotationChanged(int)), ui->widget, SLOT(setXRotation(int)));
 
             changeCoordTimer = new QTimer(this);
-            ui->widget->setCoordinates0Trajectory();
+            ui->widget->isLaunched=true;
+
             connect(changeCoordTimer, SIGNAL(timeout()), ui->widget, SLOT(launchProjectile()));
-            //connect(changeCoordTimer, SIGNAL(timeout()), ui->widget, SLOT(calculTrajectoire()));
-            changeCoordTimer->start(20);
+            changeCoordTimer->start(5);
 
             gameTime->start();
-            //connect(processTimer, SIGNAL(timeout()), this, SLOT(updateGameTime()));
+
             connect(displayCamTimer, SIGNAL(timeout()), this, SLOT(updateGameTime()));
             connect(displayCamTimer, SIGNAL(timeout()), this, SLOT(updateTotalTime()));
-            displayCamTimer->start(20);
-            //processTimer->start(20);
-            processTimer->stop();
-
 
         } else {
             int yAngle = maxLoc.x * 360 / matOriginal.cols - 180;
@@ -213,7 +218,6 @@ void MainWindow::getCoordinate(){
 
         }
         yPreviousFrame = maxLoc.y;
-
     }
 }
 
@@ -224,9 +228,24 @@ void MainWindow::updateGameTime(){
     ui->game_time_value->setText(t.toString());
 }
 
+void MainWindow::restartScene(){
+    changeCoordTimer->stop();
+    displayCamTimer->stop();
+    connect(processTimer, SIGNAL(timeout()), this, SLOT(getCoordinate()));
+    processTimer->start(20);
+    ui->widget->isLaunched = false;
+    ui->widget->trajectoire->projectile->setCoordinates(0,0,-12);
+}
+
+
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+MainWindow::save(){
+    ofstream file("scores", ios::out | ios::trunc);
+
 }
 
 

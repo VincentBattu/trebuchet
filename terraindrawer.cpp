@@ -137,11 +137,6 @@ void TerrainDrawer::drawTerrain(){
             glScalef(2,1,1);
             drawFence();
         glPopMatrix();
-        glPushMatrix();
-            glTranslatef(j,0,-100);
-            glScalef(2,1,1);
-            drawFence();
-        glPopMatrix();
         if(tag==0){
             loadAndBindLogo();
             glPushMatrix();

@@ -16,7 +16,7 @@ void TargetDrawer::drawTarget(int x, int y, float z){
     this->z = z;
     glPushMatrix();
         glTranslatef(x,y,z);
-        glScalef(6,6,.2);
+        glScalef(50,50,.2);
         drawCylinder();
     glPopMatrix();
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>875</width>
-    <height>654</height>
+    <width>459</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -219,23 +219,13 @@
      </layout>
     </item>
    </layout>
-   <zorder>widget</zorder>
-   <zorder>difficulty_label</zorder>
-   <zorder>total_time_label</zorder>
-   <zorder>total_time_value</zorder>
-   <zorder>total_time_label</zorder>
-   <zorder>groupBox</zorder>
-   <zorder>horizontalSpacer_2</zorder>
-   <zorder>target_remainding_label</zorder>
-   <zorder>targetremainding_value</zorder>
-   <zorder>information</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>875</width>
+     <width>459</width>
      <height>21</height>
     </rect>
    </property>

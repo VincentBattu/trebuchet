@@ -22,9 +22,8 @@ void Level::choosePosition(){
         srand (time(NULL));
         pos[2] = rand() % (this->z[5] - this->z[4] +1 ) + this->z[4];
     }
-    /*srand (time(NULL));
-    pos[0] = rand() % (this->maxX - this->minX +1 ) + this->minX;*/
-    pos[0] = 0;
+    srand (time(NULL));
+    pos[0] = rand() % (this->maxX - this->minX +1 ) + this->minX;
     srand (time(NULL));
     pos[1] = rand() % (this->maxX - this->minY +1 ) + this->minY;
 }

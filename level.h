@@ -61,20 +61,28 @@ public:
      * Constructeur
      * @brief Level
      * @param lvl
+     * @author Delphine
      */
     explicit Level(int lvl=0);
     /**
      * Générateur des coordonnées
      * @brief choosePosition
+     * @author Delphine
      */
     void choosePosition();
     /**
      * Appel drawTarget de TargetDrawer avec les coordonnées
      * de la classe
      * @brief drawTarget
+     * @author Delphine
      */
     void drawTarget();
 
+    /**
+     * @brief setLevel
+     * @param lvl
+     * @author Delphine
+     */
     void setLevel(int lvl) { this->lvl = lvl; }
 };
 
