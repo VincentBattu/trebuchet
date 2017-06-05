@@ -24,17 +24,15 @@ void Trajectory::calculTrajectory(){
         y = -(g/2) * (((zProjectile-z0)/v0z)*((zProjectile-z0)/v0z)) + v0y*(zProjectile-z0)/v0z + y0;
         zProjectile+=.2;
         projectile->setCoordinates(xProjectile,y,zProjectile);
+        //projectile->drawProjectile();
     }
 }
 
-/*void Trajectory::drawTrajectory(){
-    int y;
-
-    int zMax = target->z;
-    if(z<=zMax){
-        y = -(g/2) * (((z-z0)/v0z)^2) + v0y*(z-z0)/v0z + y0;
-        projectile->setCoordinates(x0,y,z);
-        //projectile->drawProjectile();
-        z++;
+void Trajectory::launchProjectile(int xRot){
+    if(xRot!=30){
+        xRot+=5;
+        qDebug()<<xRot;
+        emit rotationChanged(xRot);
     }
-}*/
+    //projectile->setCoordinates(xProjectile,y,zProjectile);
+}

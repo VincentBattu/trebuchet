@@ -172,10 +172,6 @@ void MainWindow::getCoordinate(){
 
         ui->camera->setPixmap(QPixmap::fromImage(image));
 
-        int yAngle = maxLoc.x * 360 / matOriginal.cols - 180;
-        emit yRotationChanged(yAngle);
-        int xAngle = maxLoc.y *-100 / matOriginal.rows;
-        emit xRotationChanged(xAngle);
 
 
 
@@ -190,13 +186,31 @@ void MainWindow::getCoordinate(){
         if (distance >= 60 && nbTimer<15){
             //Lancer projectile + timer
 
+            disconnect(this, SIGNAL(yRotationChanged(int)),0, 0);
+            disconnect(this, SIGNAL(xRotationChanged(int)), 0,0);
+            connect(ui->widget->trajectoire, SIGNAL(rotationChanged(int)), ui->widget, SLOT(setXRotation(int)));
+
             changeCoordTimer = new QTimer(this);
-            connect(changeCoordTimer, SIGNAL(timeout()), ui->widget, SLOT(calculTrajectoire()));
-            changeCoordTimer->start(50);
+            ui->widget->setCoordinates0Trajectory();
+            connect(changeCoordTimer, SIGNAL(timeout()), ui->widget, SLOT(launchProjectile()));
+            //connect(changeCoordTimer, SIGNAL(timeout()), ui->widget, SLOT(calculTrajectoire()));
+            changeCoordTimer->start(20);
 
             gameTime->start();
-            connect(processTimer, SIGNAL(timeout()), this, SLOT(updateGameTime()));
+            //connect(processTimer, SIGNAL(timeout()), this, SLOT(updateGameTime()));
+            connect(displayCamTimer, SIGNAL(timeout()), this, SLOT(updateGameTime()));
+            connect(displayCamTimer, SIGNAL(timeout()), this, SLOT(updateTotalTime()));
+            displayCamTimer->start(20);
             //processTimer->start(20);
+            processTimer->stop();
+
+
+        } else {
+            int yAngle = maxLoc.x * 360 / matOriginal.cols - 180;
+            emit yRotationChanged(yAngle);
+            int xAngle = maxLoc.y *-100 / matOriginal.rows;
+            emit xRotationChanged(xAngle);
+
         }
         yPreviousFrame = maxLoc.y;
 

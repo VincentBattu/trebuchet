@@ -30,7 +30,15 @@ public:
     explicit TrebuchetDrawer();
 
     /**
-     * Rendu openGL du trébuchet avec en paramètre
+     * Rendu openGL du trébuchet avec le projectile, avec en paramètre
+     * les rotations horizontale et verticale voulues
+     * @brief drawTrebuchetProjectile
+     * @param rotX
+     * @param rotY
+     */
+    void drawTrebuchetProjectile(int rotX, int rotY);
+    /**
+     * Rendu openGL du trébuchet sans projectile avec en paramètre
      * les rotations horizontale et verticale voulues
      * @brief drawTrebuchet
      * @param rotX

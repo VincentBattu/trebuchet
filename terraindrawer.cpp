@@ -166,21 +166,6 @@ void TerrainDrawer::drawTerrain(){
                     glVertex3d(5,0,0);
                 glEnd();
             glPopMatrix();
-            /*glPushMatrix();
-                glTranslatef(j,0,-99);
-                glRotatef(90,0,0,1);
-                glRotatef(90,0,1,0);
-                glBegin(GL_QUADS);
-                    glTexCoord2d(1,0);
-                    glVertex3d(-8,0,0);
-                    glTexCoord2d(0,0);
-                    glVertex3d(8,0,0);
-                    glTexCoord2d(0,1);
-                    glVertex3d(8,0,7.5);
-                    glTexCoord2d(1,1);
-                    glVertex3d(-8,0,7.5);
-                glEnd();
-            glPopMatrix();*/
             glDisable( GL_TEXTURE_2D );
             glDisable( GL_BLEND );
             glEnable( GL_CULL_FACE );

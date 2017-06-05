@@ -11,7 +11,14 @@ GLWindow::GLWindow(QWidget *parent) : GLWidget(60, parent, "Test")
     trebuchet = new TrebuchetDrawer();
     level = new Level(0);
     projectile = new ProjectileDrawer();
-    trajectoire = new Trajectory(0,10,-15,trebuchet->projectile,level->target);
+    float x,y,z;
+    x=trebuchet->projectile->x;
+    y=trebuchet->projectile->y;
+    z=trebuchet->projectile->z;
+    trajectoire = new Trajectory(x,y,z,trebuchet->projectile,level->target);
+
+    isThrowed=false;
+    isLaunched = false;
 }
 
 void GLWindow::initializeGL(){
@@ -62,14 +69,27 @@ void GLWindow::resizeGL(int width, int height){
 void GLWindow::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    gluLookAt(10,10,-10,0,10,-10,0,1,0);
+    if(!isLaunched){
+        gluLookAt(10,4,-15,0,10,-15,0,1,0);
+        terrain->drawTerrain();
+        trebuchet->drawTrebuchetProjectile(xRot,yRot);
+        level->drawTarget();
+    }else{
+        if(!isThrowed){
+            gluLookAt(20,8,40,0,8,35,0,1,0);
+            terrain->drawTerrain();
+            trebuchet->drawTrebuchet(xRot,yRot);
+            trebuchet->projectile->drawProjectile();
+            level->drawTarget();
+        }else{
+            gluLookAt(20,8,40,0,8,35,0,1,0);
+            terrain->drawTerrain();
+            trebuchet->drawTrebuchetProjectile(xRot,yRot);
+            level->drawTarget();
+        }
+    }
 
-    terrain->drawTerrain();
-    trebuchet->drawTrebuchet(xRot,yRot);
     //glRotatef(yRot,0,1,0);
-    level->drawTarget();
-
-    //trebuchet->projectile->drawProjectile();
     //trajectoire->drawTrajectory();
 
 }
@@ -79,6 +99,20 @@ void GLWindow::setLevel(int lvl){
     level->choosePosition();
 }
 
+void GLWindow::setCoordinates0Trajectory(){
+    float x,y,z;
+    x=trebuchet->projectile->x;
+    y=trebuchet->projectile->y;
+    z=trebuchet->projectile->z;
+    trajectoire = new Trajectory(x,y,z,trebuchet->projectile,level->target);
+    //isThrowed=true;
+    isLaunched=true;
+}
+
 void GLWindow::calculTrajectoire(){
     trajectoire->calculTrajectory();
+}
+
+void GLWindow::launchProjectile(){
+    trajectoire->launchProjectile(xRot);
 }

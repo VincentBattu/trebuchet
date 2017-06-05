@@ -7,8 +7,9 @@
 /**
  * Classe gérant la trajectoire du projectile
  */
-class Trajectory
+class Trajectory : public QObject
 {
+    Q_OBJECT
 
 private:
     /**
@@ -63,10 +64,17 @@ public:
 
     /**
      * Calcul et applique les coordonnées trouvées au projectile
-     * @brief drawTrajectory
+     * @brief calculTrajectory
      */
-    //void drawTrajectory();
     void calculTrajectory();
+    /**
+     * Calcul
+     * @brief launchProjectile
+     */
+    void launchProjectile(int xRot);
+
+signals:
+    void rotationChanged(int angle);
 };
 
 

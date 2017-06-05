@@ -12,11 +12,6 @@ class ProjectileDrawer
 private:
 
     /**
-     * Coordonnées du projectile
-     * @brief x,y,z
-     */
-    int x,y,z;
-    /**
      * Stocke la texture de pierre utilisée
      * @brief textureRock
      */
@@ -33,6 +28,11 @@ public:
      */
     explicit ProjectileDrawer();
 
+    /**
+     * Rendu openGL du projectile
+     * @brief drawProjectile
+     */
+    void drawProjectile(int xRot,int yRot);
     /**
      * Rendu openGL du projectile
      * @brief drawProjectile

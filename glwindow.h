@@ -25,6 +25,9 @@ private:
     TrebuchetDrawer *trebuchet;
     Level *level;
     ProjectileDrawer *projectile;
+    bool isThrowed;
+    bool isLaunched;
+
 public:
     Trajectory *trajectoire;
     explicit GLWindow(QWidget *parent = 0);
@@ -32,11 +35,13 @@ public:
     void resizeGL(int width, int height);
     void paintGL();
     void setLevel(int level);
+    void setCoordinates0Trajectory();
 
 public slots:
     void setYRotation(int angle);
     void setXRotation(int angle);
     void calculTrajectoire();
+    void launchProjectile();
 
 };
 
