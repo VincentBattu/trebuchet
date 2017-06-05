@@ -20,7 +20,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
      <widget class="GLWindow" name="widget" native="true">
       <property name="sizePolicy">
@@ -35,82 +35,200 @@
         <height>200</height>
        </size>
       </property>
-      <zorder></zorder>
-      <zorder></zorder>
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout">
+       <widget class="QLabel" name="information">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
-         <widget class="QPushButton" name="save">
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Informations</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QLabel" name="total_time_label">
+               <property name="text">
+                <string>Temps depuis début jeu :</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="total_time_value">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QLabel" name="game_time_label">
+               <property name="text">
+                <string>Temps depuis début partie : </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="game_time_value">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QLabel" name="difficulty_label">
+               <property name="text">
+                <string>Difficulté : </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="difficulty">
+               <property name="maximumSize">
+                <size>
+                 <width>70</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <item>
+                <property name="text">
+                 <string>Facile</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Moyen</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Difficile</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QLabel" name="target_remainding_label">
+               <property name="text">
+                <string>Nombre de cibles restantes</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="targetremainding_value">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="camera">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>200</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
-            <width>16777215</width>
-            <height>20</height>
+            <width>400</width>
+            <height>200</height>
            </size>
           </property>
           <property name="text">
-           <string>Mémoriser image</string>
+           <string/>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="difficulty">
-          <item>
-           <property name="text">
-            <string>Facile</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Moyen</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Difficile</string>
-           </property>
-          </item>
          </widget>
         </item>
        </layout>
       </item>
-      <item>
-       <widget class="QLabel" name="camera">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>200</width>
-          <height>200</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>400</width>
-          <height>200</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
    </layout>
+   <zorder>widget</zorder>
+   <zorder>difficulty_label</zorder>
+   <zorder>total_time_label</zorder>
+   <zorder>total_time_value</zorder>
+   <zorder>total_time_label</zorder>
+   <zorder>groupBox</zorder>
+   <zorder>horizontalSpacer_2</zorder>
+   <zorder>target_remainding_label</zorder>
+   <zorder>targetremainding_value</zorder>
+   <zorder>information</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

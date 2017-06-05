@@ -33,7 +33,7 @@ SOURCES += main.cpp\
     targetdrawer.cpp \
     level.cpp \
     projectiledrawer.cpp \
-    trajecory.cpp
+    trajectory.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \

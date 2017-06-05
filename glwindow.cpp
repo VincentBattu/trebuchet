@@ -17,6 +17,9 @@ GLWindow::GLWindow(QWidget *parent) : GLWidget(60, parent, "Test")
 void GLWindow::initializeGL(){
     glShadeModel(GL_SMOOTH);
     glEnable(GL_TEXTURE_2D);
+
+    //ropeSimulation->getMass(ropeSimulation->nbOfMasses - 1)->vel.setZ(10.0f);
+
     qglClearColor(QColor(119,181,254));
     glClearDepth(1.0f);
 
@@ -32,7 +35,11 @@ void GLWindow::setYRotation(int angle){
 }
 
 void GLWindow::setXRotation(int angle){
-     xRot = angle;
+    if(angle<-40){
+        angle = -40;
+    }
+    xRot = angle;
+
 }
 
 void GLWindow::resizeGL(int width, int height){
@@ -55,15 +62,14 @@ void GLWindow::resizeGL(int width, int height){
 void GLWindow::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-
-    gluLookAt(0,10,-15,0,10,0,0,1,0);
+    gluLookAt(10,10,-10,0,10,-10,0,1,0);
 
     terrain->drawTerrain();
-    trebuchet->drawTrebuchet(0,yRot);
+    trebuchet->drawTrebuchet(xRot,yRot);
     //glRotatef(yRot,0,1,0);
     level->drawTarget();
 
-    trebuchet->projectile->drawProjectile();
+    //trebuchet->projectile->drawProjectile();
     //trajectoire->drawTrajectory();
 
 }
@@ -71,4 +77,8 @@ void GLWindow::paintGL(){
 void GLWindow::setLevel(int lvl){
     level->setLevel(lvl);
     level->choosePosition();
+}
+
+void GLWindow::calculTrajectoire(){
+    trajectoire->calculTrajectory();
 }

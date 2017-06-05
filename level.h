@@ -18,7 +18,7 @@ private:
      * Tableau contenant les limites pour le z en fonction du niveau
      * @brief z
      */
-    int z[6] = {10,15,73,77,98,102};
+    int z[6] = {48,52,73,77,98,102};
     /**
      * Tableau contenant les coordonnées générées
      * @brief pos

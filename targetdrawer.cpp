@@ -5,10 +5,14 @@
 TargetDrawer::TargetDrawer()
 {
     textureTarget = NULL;
+    x=0;
+    y=0;
     z=0;
 }
 
-void TargetDrawer::drawTarget(int x, int y, int z){
+void TargetDrawer::drawTarget(int x, int y, float z){
+    this->x = x;
+    this->y = y;
     this->z = z;
     glPushMatrix();
         glTranslatef(x,y,z);
@@ -64,15 +68,6 @@ void TargetDrawer::drawCylinder(){
             glDisable( GL_BLEND );
             glEnable( GL_CULL_FACE );
         glPopMatrix();
-        /*glDisable(GL_TEXTURE_GEN_S);
-        glDisable(GL_TEXTURE_GEN_T);
-        glEnable(GL_TEXTURE_WRAP_S);
-        glEnable(GL_TEXTURE_WRAP_T);
-        //glDisable(GL_CLAMP_TO_BORDER);
-        glDisable(GL_CLAMP_TO_EDGE);
-        glEnable(GL_REPEAT);
-        glEnable(GL_SPHERE_MAP);
-        glEnable(GL_SMOOTH);*/
     glPopMatrix();
     glDisable( GL_TEXTURE_2D );
     glEnable( GL_CULL_FACE );

@@ -20,28 +20,27 @@ private:
      * Vitesse initiale en y
      * @brief v0y
      */
-    int v0y = 1;
+    float v0y = 10;
     /**
      * Vitesse initiale en z
      * @brief v0z
      */
-    int v0z = 1;
+    float v0z = 30;
     /**
      * Coordonnées initale en x
      * @brief x0
      */
-    int x0;
+    float x0;
     /**
      * Coordonnées initale en y
      * @brief y0
      */
-    int y0;
+    float y0;
     /**
      * Coordonnées initale en z
      * @brief z0
      */
-    int z0;
-    int z;
+    float z0;
 
     /**
      * Projectile qui suit cette trajectoire
@@ -60,14 +59,13 @@ public:
      * Constructeur
      * @brief Trajectory
      */
-    explicit Trajectory(int x0, int y0, int z0,ProjectileDrawer *projectile,TargetDrawer *target);
+    explicit Trajectory(float x0, float y0, float z0,ProjectileDrawer *projectile,TargetDrawer *target);
 
     /**
      * Calcul et applique les coordonnées trouvées au projectile
      * @brief drawTrajectory
      */
-    void drawTrajectory();
-public slots:
+    //void drawTrajectory();
     void calculTrajectory();
 };
 

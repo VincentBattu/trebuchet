@@ -3,12 +3,19 @@
 #include <QDebug>
 #include <iostream>
 
+
 using namespace cv;
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :  QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->information->setText(QString("Placer votre main dans le carré rouge et amorcez un mouvement lent vers le bas pour lancer la partie"));
+    firsTime = true;
+    totalTime = new QTime(0,0,0);
+    gameTime = new QTime(0,0,0);
+
+    distance = 0;
 
     cap.open(0);
     if(!cap.isOpened()){
@@ -27,16 +34,21 @@ MainWindow::MainWindow(QWidget *parent) :  QMainWindow(parent), ui(new Ui::MainW
     maxLoc = Point(-1,-1);
 
     // Définition du rectangle template
-    templateRect = new Rect((frameWidth-templateWidth)/2, 2*(frameHeight-templateHeight)/3, templateWidth,templateHeight);
+    templateRect = Rect((frameWidth-templateWidth)/2, 0, templateWidth,templateHeight);
 
     //On connecte le timer à l'affichage de la caméra
     displayCamTimer = new QTimer(this);
     connect(displayCamTimer, SIGNAL(timeout()), this, SLOT(displayCam()));
     displayCamTimer->start(20);
 
-    connect(ui->difficulty, SIGNAL(currentIndexChanged(int)), ui->widget, SLOT(setLevel(int)));
+    connect(ui->difficulty, SIGNAL(currentIndexChanged(int)), this, SLOT(changeLevel(int)));
 
 
+}
+
+void MainWindow::changeLevel(int lvl){
+    ui->widget->setLevel(lvl);
+    ui->targetremainding_value->setText(QString::number(nbRunsRemainded[ui->difficulty->currentIndex()]));
 }
 
 /**
@@ -62,36 +74,75 @@ void MainWindow::displayCam(){
        Rect roi = Rect(xRect, yRect, width, height);
        templatedImg = Mat(matOriginal, roi);
    }
-    templateImage = Mat(templatedImg, *templateRect).clone();
-    rectangle(matOriginal, *templateRect, Scalar(0,0,255),2,8,0);
+   // On stocke la zone de l'image située dans le rectangle.
+   if (firsTime){
+      templateImage = Mat(templatedImg, templateRect).clone();
 
-    cvtColor(matOriginal, matOriginal, CV_BGR2RGB);
-    QImage originalImage = QImage((uchar*)matOriginal.data, matOriginal.cols, matOriginal.rows, matOriginal.step, QImage::Format_RGB888);
-    ui->camera->setPixmap(QPixmap::fromImage(originalImage));
+      // On dessine le rectangle sur la frame
+      rectangle(matOriginal, templateRect, Scalar(0,0,255),2,8,0);
+      yPreviousFrame = templateRect.y;
+      firsTime = false;
+   }
+
+   // On recherche l'image dans la zone prédéfinie et on stocke le résultat dans resultImage
+   matchTemplate(templatedImg, templateImage, resultImage, TM_CCORR_NORMED);
+   minMaxLoc(resultImage, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
+   resultRect = Rect(maxLoc.x, maxLoc.y, templateWidth, templateHeight);
+
+   templateImage = Mat(matOriginal, resultRect).clone();
+
+   Mat normResultImage;
+   normalize(resultImage, normResultImage, 1, 0, NORM_MINMAX);
+   cvtColor(normResultImage,normResultImage, CV_GRAY2RGB);
+   rectangle(normResultImage, Rect(maxLoc.x, maxLoc.y,3,3),Scalar(0,0,1),2,8,0);
+   rectangle(matOriginal, resultRect, Scalar(0,0,255),2,8,0);
+
+   if (yPreviousFrame < maxLoc.y){
+       distance += (maxLoc.y - yPreviousFrame );
+   } else {
+       distance =0;
+   }
+
+   if (distance >= 100){
+       distance=0;
+       yPreviousFrame = maxLoc.y;
+       displayCamTimer->stop();
+
+       processTimer = new QTimer(this);
+       connect(processTimer, SIGNAL(timeout()), this, SLOT(getCoordinate()));
+
+       totalTime->start();
+       ui->targetremainding_value->setText(QString::number(nbRunsRemainded[ui->difficulty->currentIndex()]));
+       ui->information->setText(QString("Contrôler le trébuchet avec votre main et déclenchez le tir à l'aide d'un mouvement rapide vers le bas"));
+       connect(processTimer, SIGNAL(timeout()), this, SLOT(updateTotalTime()));
+       processTimer->start(20);
+
+       connect(this, SIGNAL(yRotationChanged(int)), ui->widget, SLOT(setYRotation(int)));
+       connect(this, SIGNAL(xRotationChanged(int)), ui->widget, SLOT(setXRotation(int)));
+
+   }
+
+
+   // Affichage de la frame
+   cvtColor(matOriginal, matOriginal, CV_BGR2RGB);
+   QImage originalImage = QImage((uchar*)matOriginal.data, matOriginal.cols, matOriginal.rows, matOriginal.step, QImage::Format_RGB888);
+   ui->camera->setPixmap(QPixmap::fromImage(originalImage));
+
+   yPreviousFrame = maxLoc.y;
 }
 
-/**
- * Quand on clique sur le bouton pour sauvegarder l'image de la main, le simple affichage s'arrête.
- * @brief MainWindow::on_save_clicked
- */
-void MainWindow::on_save_clicked()
-{
-    if (displayCamTimer->isActive()){
-        displayCamTimer->stop();
-        ui->save->setVisible(false);
-        processTimer = new QTimer(this);
-        connect(processTimer, SIGNAL(timeout()), this, SLOT(getCoordinate()));
-        connect(this, SIGNAL(yRotationChanged(int)), ui->widget, SLOT(setYRotation(int)));
-        connect(this, SIGNAL(xRotationChanged(int)), ui->widget, SLOT(setXRotation(int)));
-        processTimer->start(20);
-
-    }
+void MainWindow::updateTotalTime(){
+    QTime n = QTime(0,0,0);
+    QTime t;
+    t = n.addMSecs(totalTime->elapsed());
+    ui->total_time_value->setText(t.toString());
 }
 
 void MainWindow::getCoordinate(){
     if(cap.read(matOriginal)){
+
         flip(matOriginal, matOriginal,1);
-         Mat templatedImg;
+        Mat templatedImg;
         if (maxLoc.x = -1){
             templatedImg = matOriginal;
         } else {
@@ -120,14 +171,43 @@ void MainWindow::getCoordinate(){
         QImage image = QImage((uchar*)matOriginal.data, matOriginal.cols, matOriginal.rows, matOriginal.step, QImage::Format_RGB888);
 
         ui->camera->setPixmap(QPixmap::fromImage(image));
-        //TODO A refaire
+
         int yAngle = maxLoc.x * 360 / matOriginal.cols - 180;
         emit yRotationChanged(yAngle);
-        int xAngle = maxLoc.y *360 / matOriginal.rows;
+        int xAngle = maxLoc.y *-100 / matOriginal.rows;
         emit xRotationChanged(xAngle);
 
 
+
+        if (yPreviousFrame < maxLoc.y){
+            distance += (maxLoc.y - yPreviousFrame );
+            nbTimer++;
+        } else {
+            distance = 0;
+            nbTimer = 0;
+        }
+
+        if (distance >= 60 && nbTimer<15){
+            //Lancer projectile + timer
+
+            changeCoordTimer = new QTimer(this);
+            connect(changeCoordTimer, SIGNAL(timeout()), ui->widget, SLOT(calculTrajectoire()));
+            changeCoordTimer->start(50);
+
+            gameTime->start();
+            connect(processTimer, SIGNAL(timeout()), this, SLOT(updateGameTime()));
+            //processTimer->start(20);
+        }
+        yPreviousFrame = maxLoc.y;
+
     }
+}
+
+void MainWindow::updateGameTime(){
+    QTime n = QTime(0,0,0);
+    QTime t;
+    t = n.addMSecs(gameTime->elapsed());
+    ui->game_time_value->setText(t.toString());
 }
 
 MainWindow::~MainWindow()

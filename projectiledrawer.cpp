@@ -5,12 +5,12 @@
 ProjectileDrawer::ProjectileDrawer()
 {
     textureRock = NULL;
-    /*x=30;
+    x=30;
     y=-.2;
-    z=1.9;*/
-    x=0;
+    z=1.9;
+    /*x=0;
     y=10;
-    z=-15;
+    z=-15;*/
 }
 
 void ProjectileDrawer::loadAndBindRock(){
@@ -44,7 +44,7 @@ void ProjectileDrawer::drawProjectile(){
     glEnable( GL_CULL_FACE );
 }
 
-void ProjectileDrawer::setCoordinates(int x, int y, int z){
+void ProjectileDrawer::setCoordinates(float x, float y, float z){
     this->x = x;
     this->y = y;
     this->z = z;

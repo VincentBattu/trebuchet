@@ -17,10 +17,20 @@ private:
     QOpenGLTexture *textureTarget;
 public:
     /**
-     * Coordonnées z de la cible
+     * Coordonnée x de la cible
+     * @brief x
+     */
+    float x;
+    /**
+     * Coordonnée y de la cible
+     * @brief y
+     */
+    float y;
+    /**
+     * Coordonnée z de la cible
      * @brief z
      */
-    int z;
+    float z;
 
     /**
      * Constructeur
@@ -35,7 +45,7 @@ public:
      * @param y
      * @param z
      */
-    void drawTarget(int x, int y, int z);
+    void drawTarget(int x, int y, float z);
     /**
      * Rendu openGL du cylindre utilisé
      * @brief drawCylinder

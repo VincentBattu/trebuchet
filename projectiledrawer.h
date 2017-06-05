@@ -10,6 +10,7 @@ class ProjectileDrawer
 {
 
 private:
+
     /**
      * Coordonnées du projectile
      * @brief x,y,z
@@ -21,7 +22,11 @@ private:
      */
     QOpenGLTexture *textureRock;
 public:
-
+    /**
+     * Coordonnées du projectile
+     * @brief x,y,z
+     */
+    float x,y,z;
     /**
      * Constructeur
      * @brief ProjectileDrawer
@@ -37,7 +42,7 @@ public:
      * Fixe les coordonnées du projectile
      * @brief setCoordinates
      */
-    void setCoordinates(int x, int y, int z);
+    void setCoordinates(float x, float y, float z);
 
     /**
      * Charge la texture lors du premier appel et

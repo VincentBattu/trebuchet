@@ -8,6 +8,7 @@
 #include "projectiledrawer.h"
 #include "trajectory.h"
 
+
 /**
  * Classe gérant l'appel pour l'affichage des différents
  * éléments de la scène.
@@ -24,18 +25,19 @@ private:
     TrebuchetDrawer *trebuchet;
     Level *level;
     ProjectileDrawer *projectile;
-    Trajectory *trajectoire;
 public:
-
+    Trajectory *trajectoire;
     explicit GLWindow(QWidget *parent = 0);
     void initializeGL();
     void resizeGL(int width, int height);
     void paintGL();
+    void setLevel(int level);
 
 public slots:
     void setYRotation(int angle);
     void setXRotation(int angle);
-    void setLevel(int level);
+    void calculTrajectoire();
+
 };
 
 #endif // GLWINDOW_H
